@@ -47,11 +47,11 @@ CREATE TABLE nhan_vien (
     email VARCHAR(45),
     dia_chi VARCHAR(45),
     FOREIGN KEY (id_vi_tri)
-        REFERENCES vi_tri (id_vi_tri),
+        REFERENCES vi_tri (id_vi_tri) on update cascade on delete cascade,
     FOREIGN KEY (id_trinh_do)
-        REFERENCES trinh_do (id_trinh_do),
+        REFERENCES trinh_do (id_trinh_do) on update cascade on delete cascade,
     FOREIGN KEY (id_bo_phan)
-        REFERENCES bo_phan (id_bo_phan)
+        REFERENCES bo_phan (id_bo_phan) on update cascade on delete cascade
 );
 CREATE TABLE khach_hang (
     id_khach_hang INT PRIMARY KEY AUTO_INCREMENT,
@@ -63,7 +63,7 @@ CREATE TABLE khach_hang (
     email VARCHAR(45),
     dia_chi VARCHAR(45),
     FOREIGN KEY (id_loai_khach)
-        REFERENCES loai_khach (id_loai_khach)
+        REFERENCES loai_khach (id_loai_khach)on update cascade on delete cascade
 );
 CREATE TABLE dich_vu (
     id_dich_vu INT PRIMARY KEY AUTO_INCREMENT,
@@ -76,9 +76,9 @@ CREATE TABLE dich_vu (
     id_loai_dich_vu INT,
     trang_thai VARCHAR(45),
     FOREIGN KEY (id_kieu_thue)
-        REFERENCES kieu_thue (id_kieu_thue),
+        REFERENCES kieu_thue (id_kieu_thue) on update cascade on delete cascade,
     FOREIGN KEY (id_loai_dich_vu)
-        REFERENCES loai_dich_vu (id_loai_dich_vu)
+        REFERENCES loai_dich_vu (id_loai_dich_vu) on update cascade on delete cascade
 );
 CREATE TABLE hop_dong (
     id_hop_dong INT PRIMARY KEY AUTO_INCREMENT,
@@ -90,11 +90,11 @@ CREATE TABLE hop_dong (
     tien_dat_coc INT,
     tong_tien INT,
     FOREIGN KEY (id_nhan_vien)
-        REFERENCES nhan_vien (id_nhan_vien),
+        REFERENCES nhan_vien (id_nhan_vien) on update cascade on delete cascade,
     FOREIGN KEY (id_khach_hang)
-        REFERENCES khach_hang (id_khach_hang),
+        REFERENCES khach_hang (id_khach_hang) on update cascade on delete cascade,
     FOREIGN KEY (id_dich_vu)
-        REFERENCES dich_vu (id_dich_vu)
+        REFERENCES dich_vu (id_dich_vu) on update cascade on delete cascade
 );
 
 CREATE TABLE hop_dong_chi_tiet (
@@ -103,9 +103,9 @@ CREATE TABLE hop_dong_chi_tiet (
     id_hop_dong INT,
     id_dich_vu_di_kem INT,
     FOREIGN KEY (id_hop_dong)
-        REFERENCES hop_dong (id_hop_dong),
+        REFERENCES hop_dong (id_hop_dong) on update cascade on delete cascade,
     FOREIGN KEY (id_dich_vu_di_kem)
-        REFERENCES dich_vu_di_kem (id_dich_vu_di_kem)
+        REFERENCES dich_vu_di_kem (id_dich_vu_di_kem) on update cascade on delete cascade
 );
 
 INSERT INTO bo_phan( ten_bo_phan)
@@ -187,8 +187,8 @@ INSERT INTO nhan_vien(ho_va_ten,id_vi_tri,id_trinh_do,id_bo_phan,
    INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
    ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien)
    VALUES	(1,2,1,'2021-01-24','2021-10-25',5000000,5000000),
-			(2,1,3,'2021-02-24','2021-10-25',2000000,5000000),
-			(3,3,1,'2021-03-24','2021-10-25',1000000,1000000),
+			(2,1,3,'2018-02-24','2021-10-25',2000000,5000000),
+			(3,3,1,'2019-03-24','2021-10-25',1000000,1000000),
 			(2,1,2,'2021-04-24','2021-10-25',2000000,5000000),
 			(2,1,1,'2021-05-24','2021-10-25',2000000,5000000);
 	
@@ -246,10 +246,28 @@ FROM khach_hang K LEFT JOIN hop_dong H ON K.id_khach_hang=H.id_khach_hang
   LEFT  JOIN hop_dong_chi_tiet C ON C.id_hop_dong=H.id_hop_dong
   LEFT  JOIN dich_vu_di_kem V ON V.id_dich_vu_di_kem = C.id_dich_vu_di_kem
     GROUP BY K.id_khach_hang;
- /*6.Hiển thị IDDichVu, TenDichVu, DienTich, ChiPhiThue, TenLoaiDichVu 
+ /* Task 6.Hiển thị IDDichVu, TenDichVu, DienTich, ChiPhiThue, TenLoaiDichVu 
 	của tất cả các loại Dịch vụ chưa từng được Khách hàng thực hiện đặt 
 	từ quý 1 của năm 2019 (Quý 1 là tháng 1, 2, 3). */	
 SELECT D.id_dich_vu, D.ten_dich_vu, D.dien_tich, D.chi_phi_thue,L.ten_loai_dich_vu,H.ngay_lam_hop_dong
 FROM dich_vu D LEFT JOIN loai_dich_vu L ON L.id_loai_dich_vu = D.id_loai_dich_vu
 LEFT JOIN hop_dong H ON H.id_dich_vu=D.id_dich_vu
-WHERE NOT (month(H.ngay_lam_hop_dong)=1 OR month(H.ngay_lam_hop_dong)=2 OR month(H.ngay_lam_hop_dong)=3)
+WHERE NOT (month(H.ngay_lam_hop_dong)=1 OR month(H.ngay_lam_hop_dong)=2
+ OR month(H.ngay_lam_hop_dong)=3);
+/* Task 7.	Hiển thị thông tin IDDichVu, TenDichVu, DienTich, SoNguoiToiDa, 
+ChiPhiThue, TenLoaiDichVu của tất cả các loại dịch vụ đã từng được 
+Khách hàng đặt phòng trong năm 2018 nhưng chưa từng 
+được Khách hàng đặt phòng  trong năm 2019.
+ */
+ SELECT D.id_dich_vu, D.ten_dich_vu, D.dien_tich,D.so_nguoi_toi_da,
+ D.chi_phi_thue,L.ten_loai_dich_vu,H.ngay_lam_hop_dong
+FROM dich_vu D LEFT JOIN loai_dich_vu L ON L.id_loai_dich_vu = D.id_loai_dich_vu
+LEFT JOIN hop_dong H ON H.id_dich_vu=D.id_dich_vu
+WHERE ( NOT (year(H.ngay_lam_hop_dong)=2019) ) AND year(H.ngay_lam_hop_dong)=2018;
+/* 
+8.	Hiển thị thông tin HoTenKhachHang có trong hệ thống,
+ với yêu cầu HoThenKhachHang không trùng nhau.
+Học viên sử dụng theo 3 cách khác nhau để thực hiện yêu cầu trên
+*/
+-- Cách 1:
+SELECT*FROM khach_hang;
