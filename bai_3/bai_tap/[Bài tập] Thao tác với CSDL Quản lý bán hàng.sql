@@ -71,7 +71,7 @@ FROM `order`;
  -- Hiển thị mã hóa đơn, ngày bán và giá tiền của từng hóa đơn
  
  SELECT O.o_id,
-		O.o_date,SUM(P.p_price*D.od_QTY) AS total_price
+		O.o_date,SUM(P.p_price*D.od_QTY) AS o_total_price
 FROM `order` O
 		JOIN
 	order_deitail D ON O.o_id=D.o_id
