@@ -186,11 +186,11 @@ INSERT INTO nhan_vien(ho_va_ten,id_vi_tri,id_trinh_do,id_bo_phan,
      
    INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
    ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien)
-   VALUES	(1,2,1,'2021-09-24','2021-10-25',5000000,5000000),
-			(2,1,3,'2021-09-24','2021-10-25',2000000,5000000),
-			(3,3,1,'2021-09-24','2021-10-25',1000000,1000000),
-			(2,1,2,'2021-09-24','2021-10-25',2000000,5000000),
-			(2,1,1,'2021-09-24','2021-10-25',2000000,5000000);
+   VALUES	(1,2,1,'2021-01-24','2021-10-25',5000000,5000000),
+			(2,1,3,'2021-02-24','2021-10-25',2000000,5000000),
+			(3,3,1,'2021-03-24','2021-10-25',1000000,1000000),
+			(2,1,2,'2021-04-24','2021-10-25',2000000,5000000),
+			(2,1,1,'2021-05-24','2021-10-25',2000000,5000000);
 	
 
    INSERT INTO hop_dong_chi_tiet(so_luong,id_hop_dong,id_dich_vu_di_kem)
@@ -245,5 +245,11 @@ FROM khach_hang K LEFT JOIN hop_dong H ON K.id_khach_hang=H.id_khach_hang
    LEFT  JOIN dich_vu D ON D.id_dich_vu = H.id_dich_vu
   LEFT  JOIN hop_dong_chi_tiet C ON C.id_hop_dong=H.id_hop_dong
   LEFT  JOIN dich_vu_di_kem V ON V.id_dich_vu_di_kem = C.id_dich_vu_di_kem
-    GROUP BY K.id_khach_hang
-	
+    GROUP BY K.id_khach_hang;
+ /*6.Hiển thị IDDichVu, TenDichVu, DienTich, ChiPhiThue, TenLoaiDichVu 
+	của tất cả các loại Dịch vụ chưa từng được Khách hàng thực hiện đặt 
+	từ quý 1 của năm 2019 (Quý 1 là tháng 1, 2, 3). */	
+SELECT D.id_dich_vu, D.ten_dich_vu, D.dien_tich, D.chi_phi_thue,L.ten_loai_dich_vu,H.ngay_lam_hop_dong
+FROM dich_vu D LEFT JOIN loai_dich_vu L ON L.id_loai_dich_vu = D.id_loai_dich_vu
+LEFT JOIN hop_dong H ON H.id_dich_vu=D.id_dich_vu
+WHERE NOT (month(H.ngay_lam_hop_dong)=1 OR month(H.ngay_lam_hop_dong)=2 OR month(H.ngay_lam_hop_dong)=3)
