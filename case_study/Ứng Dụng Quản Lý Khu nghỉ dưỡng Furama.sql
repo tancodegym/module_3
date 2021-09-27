@@ -174,7 +174,8 @@ INSERT INTO nhan_vien(ho_va_ten,id_vi_tri,id_trinh_do,id_bo_phan,
         ('Nguyen Thi Thu Suong',1,1,3,'1979-01-22','162605555',
         1500000,'0332254451','suongnguyen@gmail.com','Hải Châu');
       
-   SET FOREIGN_KEY_CHECKS=1;
+  
+   
 	INSERT INTO khach_hang(id_loai_khach,
 	ho_va_ten,ngay_sinh,so_CMND,so_dien_thoai,email,dia_chi)
 VALUES
@@ -213,7 +214,7 @@ VALUES
         ('thue_room',100,1,5,100000,2,3,'dang su dung'),
         ('thue_room',100,1,5,50000,3,3,'dang su dung'),
         ('thue_room',100,1,5,20000,4,3,'dang su dung');
-     SET FOREIGN_KEY_CHECKS=0;
+     
 INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
    ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien)
    VALUES	(1,2,12,'2021-01-24','2021-10-25',5000000,5000000),
@@ -247,7 +248,7 @@ INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
             (6,11,1,'2014-05-21','2014-10-25',2000000,5000000),
             (8,11,1,'2019-12-12','2021-12-25',2000000,5000000),
             (9,11,1,'2019-12-12','2021-12-25',2000000,5000000);
-	 SET FOREIGN_KEY_CHECKS=1;
+	 
 
    INSERT INTO hop_dong_chi_tiet(so_luong,id_hop_dong,id_dich_vu_di_kem)
    VALUES 	(1,1,6),(1,5,1),(1,5,2),(1,5,3),(1,5,4),
@@ -258,7 +259,7 @@ INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
 			(1,2,5),(1,12,5),(1,11,5),(1,13,5),(1,14,5)
             ,(1,15,5),(1,2,5),(1,18,5),(1,17,5),(1,16,5),
             (1,2,5),(1,19,5),(1,11,5),(1,12,5),(1,6,5);
-  
+  SET FOREIGN_KEY_CHECKS=1; 
 -- TASK 2:	Hiển thị thông tin của tất cả 
 -- 			nhân viên có trong hệ thống có tên bắt đầu 
 -- 			là một trong các ký tự “H”, “T” hoặc “K” và
@@ -410,16 +411,16 @@ GROUP BY T.id_hop_dong;
  bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có 
  số lần sử dụng nhiều như nhau).
  */
- SELECT K.ten_dich_vu_di_kem,K.gia,K.id_dich_vu_di_kem,max(so_luong_nhieu_nhat)
- FROM dich_vu_di_kem K JOIN 
- (SELECT K.ten_dich_vu_di_kem,K.gia,K.id_dich_vu_di_kem,
- count(ten_dich_vu_di_kem) AS so_luong_nhieu_nhat
- FROM
- hop_dong_chi_tiet H 
-JOIN dich_vu_di_kem K 
-on K.id_dich_vu_di_kem = H.id_dich_vu_di_kem
- GROUP BY K.id_dich_vu_di_kem
- ) AS A;
+ 
+ SELECT T.id_dich_vu_di_kem,count(T.id_dich_vu_di_kem) AS so_lan ,K.gia,K.ten_dich_vu_di_kem
+ FROM hop_dong_chi_tiet T JOIN dich_vu_di_kem K on K.id_dich_vu_di_kem=T.id_dich_vu_di_kem
+ GROUP by T.id_dich_vu_di_kem
+  HAVING count(T.id_dich_vu_di_kem)>= ALL ( 
+  SELECT count(id_dich_vu_di_kem) FROM hop_dong_chi_tiet
+ GROUP by id_dich_vu_di_kem);
+
+
+
  /* Task 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm 
  chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị
  bao gồm IDHopDong, TenLoaiDichVu, TenDichVuDiKem, SoLanSuDung. */
@@ -516,6 +517,7 @@ WHERE id_dich_vu_di_kem IN
 /* Task 20.	Hiển thị thông tin của tất cả các Nhân viên và 
 Khách hàng có trong hệ thống, thông tin hiển thị bao gồm ID 
 (IDNhanVien, IDKhachHang), HoTen, Email, SoDienThoai, NgaySinh, DiaChi. */
+-- cách 1:
 CREATE VIEW person_view AS
 SELECT id_nhan_vien,ho_va_ten,email,so_dien_thoai,ngay_sinh,dia_chi
 FROM nhan_vien
@@ -523,6 +525,12 @@ UNION
 SELECT id_khach_hang,ho_va_ten,email,so_dien_thoai,ngay_sinh,dia_chi
 FROM khach_hang;
 SELECT*FROM person_view;
+-- cách 2:
+SELECT id_nhan_vien,ho_va_ten,email,so_dien_thoai,ngay_sinh,dia_chi
+FROM nhan_vien
+UNION ALL
+SELECT id_khach_hang,ho_va_ten,email,so_dien_thoai,ngay_sinh,dia_chi
+FROM khach_hang;
 
 /* Task  21. Tạo khung nhìn có tên là V_NHANVIEN
  để lấy được thông tin của tất cả các nhân viên 
@@ -548,9 +556,51 @@ SET V_NHANVIEN.dia_chi="Liên Chiểu"
  /* Task 23:	Tạo Store procedure Sp_1 Dùng để xóa thông tin 
  của một Khách hàng nào đó với Id Khách hàng được truyền 
  vào như là 1 tham số của Sp_1 */
+ DROP PROCEDURE IF EXISTS Sp_1;
+ DELIMITER $$
+ CREATE PROCEDURE  Sp_1(
+ IN in_id INT
+ )
+ BEGIN
+ DELETE FROM khach_hang
+ WHERE khach_hang.id_khach_hang=in_id;
+ SELECT*FROM khach_hang;
+ END $$
+ DELIMITER ; 
+ SELECT*FROM khach_hang;
+ CALL Sp_1(5);
+
+/* Task 24:	Tạo Store procedure Sp_2 Dùng để thêm mới 
+vào bảng HopDong với yêu cầu Sp_2 phải thực hiện kiểm tra 
+tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không được
+ trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan.*/	
+
+ DROP PROCEDURE IF EXISTS Sp_2;
  
  
- 
+ DELIMITER $$
+ CREATE PROCEDURE  Sp_2(
+ IN id_hd INT,
+ IN id_nhan_vien INT ,
+ IN id_khach_hang INT,
+ IN id_dich_vu INT,
+ IN ngay_lam_hop_dong DATE,
+ IN ngay_ket_thuc DATE,
+ IN tien_dat_coc INT,
+ IN tong_tien INT
+ )
+ BEGIN
+ Set id_hd = (SELECT max(id_hop_dong)
+			FROM hop_dong)+1;
+INSERT INTO  hop_dong(id_hop_dong,id_nhan_vien,id_khach_hang,id_dich_vu,
+   ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien)
+   VALUES	(id_hd,id_nhan_vien,id_khach_hang,id_dich_vu,
+			ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien);
+
+ END $$
+ DELIMITER ;
+ CALL Sp_2 ( 0,9,5,7,'2021-09-27','2021-09-30',5000000,15000000);
+
  
  
  
