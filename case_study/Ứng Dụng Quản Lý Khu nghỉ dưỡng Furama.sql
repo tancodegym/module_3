@@ -601,6 +601,5 @@ INSERT INTO  hop_dong(id_hop_dong,id_nhan_vien,id_khach_hang,id_dich_vu,
  DELIMITER ;
  CALL Sp_2 ( 0,9,5,7,'2021-09-27','2021-09-30',5000000,15000000);
 
- 
- 
+
  
