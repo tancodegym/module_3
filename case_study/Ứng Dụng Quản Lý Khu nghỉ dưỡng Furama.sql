@@ -247,8 +247,12 @@ INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
             (5,10,1,'2015-05-21','2015-10-25',2000000,5000000),
             (6,11,1,'2014-05-21','2014-10-25',2000000,5000000),
             (8,11,1,'2019-12-12','2021-12-25',2000000,5000000),
-            (9,11,1,'2019-12-12','2021-12-25',2000000,5000000);
-	 
+            (9,11,1,'2019-12-12','2021-12-25',2000000,5000000),
+             (6,12,12,'2015-05-21','2014-10-25',2000000,5000000),
+            (8,15,13,'2015-12-12','2021-12-25',2000000,5000000),
+             (8,13,14,'2019-12-12','2021-12-25',2000000,5000000),
+            (9,14,15,'2019-12-12','2021-12-25',2000000,5000000);
+	
 
    INSERT INTO hop_dong_chi_tiet(so_luong,id_hop_dong,id_dich_vu_di_kem)
    VALUES 	(1,1,6),(1,5,1),(1,5,2),(1,5,3),(1,5,4),
@@ -259,6 +263,8 @@ INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
 			(1,2,5),(1,12,5),(1,11,5),(1,13,5),(1,14,5)
             ,(1,15,5),(1,2,5),(1,18,5),(1,17,5),(1,16,5),
             (1,2,5),(1,19,5),(1,11,5),(1,12,5),(1,6,5);
+
+
   SET FOREIGN_KEY_CHECKS=1; 
 -- TASK 2:	Hiển thị thông tin của tất cả 
 -- 			nhân viên có trong hệ thống có tên bắt đầu 
@@ -556,6 +562,7 @@ SET V_NHANVIEN.dia_chi="Liên Chiểu"
  /* Task 23:	Tạo Store procedure Sp_1 Dùng để xóa thông tin 
  của một Khách hàng nào đó với Id Khách hàng được truyền 
  vào như là 1 tham số của Sp_1 */
+ USE furama_resort;
  DROP PROCEDURE IF EXISTS Sp_1;
  DELIMITER $$
  CREATE PROCEDURE  Sp_1(
