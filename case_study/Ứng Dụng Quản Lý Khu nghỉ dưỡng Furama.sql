@@ -248,12 +248,11 @@ INSERT INTO hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
             (6,11,1,'2014-05-21','2014-10-25',2000000,5000000),
             (8,11,1,'2019-12-12','2021-12-25',2000000,5000000),
             (9,11,1,'2019-12-12','2021-12-25',2000000,5000000),
-             (6,12,12,'2015-05-21','2014-10-25',2000000,5000000),
+             (6,12,12,'2015-05-21','2017-10-25',2000000,5000000),
             (8,15,13,'2015-12-12','2021-12-25',2000000,5000000),
              (8,13,14,'2019-12-12','2021-12-25',2000000,5000000),
             (9,14,15,'2019-12-12','2021-12-25',2000000,5000000);
 	
-
    INSERT INTO hop_dong_chi_tiet(so_luong,id_hop_dong,id_dich_vu_di_kem)
    VALUES 	(1,1,6),(1,5,1),(1,5,2),(1,5,3),(1,5,4),
 			(1,7,1),(1,7,2),(1,7,3),(1,7,4),
@@ -352,7 +351,7 @@ FROM khach_hang;
 /* Task 9:	Thực hiện thống kê doanh thu theo tháng, 
 nghĩa là tương ứng với mỗi tháng trong năm 2019 
 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng. */
-SELECT count(H.id_dich_vu) AS doanh_thu 
+SELECT count(H.id_hop_dong) AS doanh_thu 
 ,month(ngay_lam_hop_dong) AS thang
 FROM hop_dong H
 WHERE year(ngay_lam_hop_dong)=2019
@@ -362,6 +361,7 @@ Hợp đồng thì đã sử dụng bao nhiêu Dịch vụ đi kèm.
 Kết quả hiển thị bao gồm IDHopDong, NgayLamHopDong,
  NgayKetthuc, TienDatCoc, SoLuongDichVuDiKem 
  (được tính dựa trên việc count các IDHopDongChiTiet). */
+ Use furama_resort;
  SELECT H.id_hop_dong,H.ngay_lam_hop_dong,
  H.ngay_ket_thuc,H.tien_dat_coc,count(T.id_dich_vu_di_kem) AS so_luong_dich_vu_di_kem
  FROM hop_dong H JOIN hop_dong_chi_tiet T on H.id_hop_dong=T.id_hop_dong
@@ -581,13 +581,11 @@ SET V_NHANVIEN.dia_chi="Liên Chiểu"
 vào bảng HopDong với yêu cầu Sp_2 phải thực hiện kiểm tra 
 tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không được
  trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan.*/	
-
+USE furama_resort;
  DROP PROCEDURE IF EXISTS Sp_2;
- 
  
  DELIMITER $$
  CREATE PROCEDURE  Sp_2(
- IN id_hd INT,
  IN id_nhan_vien INT ,
  IN id_khach_hang INT,
  IN id_dich_vu INT,
@@ -597,16 +595,13 @@ tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không đượ
  IN tong_tien INT
  )
  BEGIN
- Set id_hd = (SELECT max(id_hop_dong)
-			FROM hop_dong)+1;
-INSERT INTO  hop_dong(id_hop_dong,id_nhan_vien,id_khach_hang,id_dich_vu,
+INSERT INTO  hop_dong(id_nhan_vien,id_khach_hang,id_dich_vu,
    ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien)
-   VALUES	(id_hd,id_nhan_vien,id_khach_hang,id_dich_vu,
+   VALUES	(id_nhan_vien,id_khach_hang,id_dich_vu,
 			ngay_lam_hop_dong,ngay_ket_thuc,tien_dat_coc,tong_tien);
-
  END $$
  DELIMITER ;
- CALL Sp_2 ( 0,9,5,7,'2021-09-27','2021-09-30',5000000,15000000);
+ CALL Sp_2 ( 9,5,7,'2021-09-27','2021-09-30',5000000,15000000);
 
 
  

@@ -101,6 +101,7 @@ SELECT @so_lan;
  và những bản liên quan khác. */
  
 -- TẠO VIEW CHỨA NHỮNG id_hop_dong và id_dich_vu theo yêu cầu của đề để xóa
+USE furama_resort;
 	CREATE OR REPLACE VIEW  delete_row AS
 	SELECT id_hop_dong, D.id_dich_vu
 	FROM dich_vu D  JOIN hop_dong H on D.id_dich_vu = H.id_dich_vu
@@ -117,13 +118,10 @@ SELECT @so_lan;
  id_dich_vu INT );
  INSERT INTO delete_by_id
  SELECT* FROM delete_row;
-
  DELETE FROM hop_dong
  WHERE id_hop_dong in ( SELECT id_hop_dong FROM delete_by_id);
- 
  DELETE FROM dich_vu
  WHERE id_dich_vu in ( SELECT id_dich_vu FROM delete_by_id);
- 
  DROP table delete_by_id;
  END //
  DELIMITER ;
