@@ -107,6 +107,7 @@ USE furama_resort;
 	FROM dich_vu D  JOIN hop_dong H on D.id_dich_vu = H.id_dich_vu
 					JOIN loai_dich_vu L on L.id_loai_dich_vu = D.id_loai_dich_vu
 	WHERE L.ten_loai_dich_vu = "Room" and year(ngay_lam_hop_dong) between 2015 and 2019;
+    SELECT*FROM delete_row;
 
  DELIMITER //
  CREATE PROCEDURE sp_3()

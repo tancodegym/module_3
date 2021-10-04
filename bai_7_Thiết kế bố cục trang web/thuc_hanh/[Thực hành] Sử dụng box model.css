@@ -1,0 +1,23 @@
+.box_model{
+    margin: 0 auto;
+    width: 800px;
+    border: 20px;
+    padding: 10px;
+    border-color: chartreuse aqua blue blueviolet;
+    border-style: solid;
+
+}
+.box_model p {
+    border: 3px dotted darkred;
+    padding: 10px;
+}
+#box_model1{
+margin-bottom: 20px;
+}
+#box_model2{
+    margin-bottom: 40px;
+
+}
+#box_model3{
+    margin-bottom: 60px;
+}

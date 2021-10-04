@@ -351,11 +351,22 @@ FROM khach_hang;
 /* Task 9:	Thực hiện thống kê doanh thu theo tháng, 
 nghĩa là tương ứng với mỗi tháng trong năm 2019 
 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng. */
+CREATE TEMPORARY TABLE thang(
+thang int primary key AUTO_INCREMENT
+);
+INSERT into thang()
+Values(),(),(),(),(),(),(),(),(),(),(),();
+SELECT*FROM thang;
+SELECT DISTINCT*FROM (
 SELECT count(H.id_hop_dong) AS doanh_thu 
 ,month(ngay_lam_hop_dong) AS thang
 FROM hop_dong H
 WHERE year(ngay_lam_hop_dong)=2019
-GROUP BY month(ngay_lam_hop_dong);
+GROUP BY month(ngay_lam_hop_dong)
+UNION 
+SELECT null, thang FROM thang) AS a ;
+
+
 /*Task 10:Hiển thị thông tin tương ứng với từng 
 Hợp đồng thì đã sử dụng bao nhiêu Dịch vụ đi kèm. 
 Kết quả hiển thị bao gồm IDHopDong, NgayLamHopDong,
@@ -402,17 +413,13 @@ Join hop_dong H  on D.id_dich_vu = H.id_dich_vu
  JOIN hop_dong_chi_tiet T on T.id_hop_dong = H.id_hop_dong
 JOIN dich_vu_di_kem V on V.id_dich_vu_di_kem = T.id_dich_vu_di_kem
 WHERE year(ngay_lam_hop_dong)=2019 AND quarter(ngay_lam_hop_dong)=4 
-AND D.id_dich_vu NOT IN (SELECT 
-            D.id_dich_vu
-        FROM
-            dich_vu D
-                JOIN
-            hop_dong H ON D.id_dich_vu = H.id_dich_vu
-        WHERE
-            (QUARTER(H.ngay_lam_hop_dong) = 1
-                OR QUARTER(H.ngay_lam_hop_dong) = 2)
-                AND (YEAR(H.ngay_lam_hop_dong) = 2019))
+AND D.id_dich_vu NOT IN (SELECT  D.id_dich_vu
+						FROM  dich_vu D  JOIN  hop_dong H ON D.id_dich_vu = H.id_dich_vu
+						WHERE (QUARTER(H.ngay_lam_hop_dong) = 1
+							OR QUARTER(H.ngay_lam_hop_dong) = 2)
+							AND (YEAR(H.ngay_lam_hop_dong) = 2019))
 GROUP BY T.id_hop_dong;
+
 /* Task 13. Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất
  bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có 
  số lần sử dụng nhiều như nhau).
@@ -424,9 +431,7 @@ GROUP BY T.id_hop_dong;
   HAVING count(T.id_dich_vu_di_kem)>= ALL ( 
   SELECT count(id_dich_vu_di_kem) FROM hop_dong_chi_tiet
  GROUP by id_dich_vu_di_kem);
-
-
-
+ 
  /* Task 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm 
  chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị
  bao gồm IDHopDong, TenLoaiDichVu, TenDichVuDiKem, SoLanSuDung. */
@@ -470,6 +475,7 @@ TenLoaiKhachHang từ  Platinium lên Diamond,
 chỉ cập nhật những khách hàng đã từng đặt phòng
  với tổng Tiền thanh toán trong năm 2019 là lớn hơn 10.000.000 VNĐ.
  */  
+ CREATE TEMPORARY table tgg (SELECT *FROM thang);
 SET SQL_SAFE_UPDATES = 0;
 UPDATE khach_hang
 SET id_loai_khach=1
@@ -486,6 +492,7 @@ WHERE id_khach_hang IN (SELECT id_khach_hang FROM
             GROUP BY H.id_khach_hang
             HAVING SUM(D.chi_phi_thue + V.gia * V.don_vi) > 10000000) AS id_khach_hang_cap_2);
 SET SQL_SAFE_UPDATES = 1;
+SELECT*FROM khach_hang;
 
 /* Task 18. Xóa những khách hàng có hợp đồng trước năm 2016 
 (chú ý ràngbuộc giữa các bảng).

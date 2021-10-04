@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Bài tập] Phát triển trang web xem hoạt hình trực tuyến</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 5px;
+        }
+
+        .row::after {
+            clear: both;
+            display: block;
+            content: "";
+        }
+
+        .col-1 {
+            width: 8.33%;
+        }
+
+        .col-2 {
+            width: 16.66%;
+        }
+
+        .col-3 {
+            width: 25%;
+        }
+
+        .col-4 {
+            width: 33.33%;
+        }
+
+        .col-5 {
+            width: 41.66%;
+        }
+
+        .col-6 {
+            width: 50%;
+        }
+
+        .col-7 {
+            width: 58.33%;
+        }
+
+        .col-8 {
+            width: 66.66%;
+        }
+
+        .col-9 {
+            width: 75%;
+        }
+
+        .col-10 {
+            width: 83.33%;
+        }
+
+        .col-11 {
+            width: 91.66%;
+        }
+
+        .col-12 {
+            width: 100%;
+        }
+
+        .header {
+            background-color: gray;
+            font-size: 20px;
+        }
+
+        #logo_hh {
+            background-color: red;
+            border-radius: 5px;
+            padding: 2px;
+            color: white;
+        }
+
+        .menu_link {
+            background-color: gray;
+            margin-top: 3px;
+            text-align: center;
+        }
+
+        a {
+            padding: 10px;
+        }
+
+        p {
+            margin-top: 0px;
+            margin-bottom: 0px;
+
+        }
+
+        h4 {
+            margin-bottom: 0px;
+            margin-top: 0px;
+        }
+        .footer{
+            background-color: gray;
+            text-align: center;
+        }
+        @media only screen and (max-width: 768px) {
+            [class*="col-"]{
+                width: 100%;
+            }
+
+        }
+        @media only screen and (orientation: landscape) {
+            body {
+                background-color: lightblue;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="row header">
+    <div class="col-12">
+        Phim <span id="logo_hh">Hoạt Hình</span>
+    </div>
+</div>
+<div class="row menu_link">
+    <div class="col-12">
+        <a>Phim hoạt hình</a>|
+        <a>Phim hoạt hình yêu thích</a>|
+        <a>Nhân vật hoạt hình</a>|
+        <a>Góp ý</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/qxTaRtdwAgc" title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>Vua trò chơi yugioh +++ Tập 129 Obelisk Đối Đầu Osiris yugi vs kaiba +++ Phần I</h4>
+                <p>279.470 lượt xem - 18 thg 3, 2021
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/FgDnvccnZYM"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>[S5] Pokémon Tập 218 - Giải cứu Lugia! - Hoạt Hình Pokémon Tiếng Việt</h4>
+                <p>1.543.146 lượt xem - 4 thg 4, 2020
+                </p>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/l6D5frb1VEE"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>Doraemon: Nobita và những hiệp sĩ không gian | Doraemon Tập Dài</h4>
+                <p>2.128.258 lượt xem - 29 thg 5, 2020
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/340bDrWvht0"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>Vua trò chơi yugioh +++ Tập 224 Đánh Bại Ba Vị Thần yugi vs pharaoh atem +++ Phần I</h4>
+                <p>34.550 lượt xem - 19 thg 2, 2021
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="row">
+            <div class="col-12">
+                <iframe width="100%" height="500px" src="https://www.youtube.com/embed/0P6LKixnzoU"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>The Movie: Doraemon Và Chuyến Thám Hiểm Mặt Trăng l 2019 [ Full Vietsub]</h4>
+                <p>3.591.677 lượt xem
+                </p>
+                <p>
+                    Doraemon (ドラえもん)? tên cũ tại Việt Nam là Đôrêmon, là nhân vật chính hư cấu
+                    trong loạt Manga cùng tên của họa sĩ Fujiko F. Fujio. Trong truyện lấy bối cảnh ở thế kỷ 22,
+                    Doraemon là chú mèo robot của tương lai do xưởng Matsushiba — công xưởng chuyên sản xuất robot vốn
+                    dĩ nhằm mục đích chăm sóc trẻ nhỏ. Ban đầu, chú mèo vốn dĩ thuộc sở hữu của cậu bé Sewashi, là con
+                    cháu năm đời sau của Nobita nhưng về sau Sewashi gửi lại cho ông Nobita của mình nhằm cải thiện cuộc
+                    sống của ông mình do Nobita là người hậu đậu, vụng về, luôn gặp trắc trở trong cuộc sống mà dẫn đến
+                    các thế hệ con cháu sau này phải sống trong cảnh nghèo khổ trong đó có Sewashi. Doraemon có một
+                    chiếc túi thần kì nhỏ trước bụng mà bên trong chứa vô vàn bảo bối tiện ích của tương lai chính vì
+                    vậy mà thường xuyên bị Nobita vòi vĩnh mượn.
+
+                    Theo như lời kể của họa sĩ Fujiko, trong một đêm ông đang tìm kiếm đề tài và nhân vật cho một bộ
+                    truyện tranh tâm đắc thì một con mèo hoang nhảy vào nhà, nó kêu vài tiếng rồi nhảy vào lòng ông mà
+                    ngủ. Do quá mệt mỏi Fujiko cũng thiếp đi lúc nào không biết. Sáng hôm sau thức dậy, ông vội vàng
+                    bước xuống cầu thang và vấp phải con lật đật của cô con gái, từ đó sinh ra sự kết hợp giữa lật đật
+                    và mèo và ra đời nhân vật Doraemon. Ngoài nước da màu xanh không có tai, bàn tay tròn vo thì Fujiko
+                    còn đính kèm một cái chuông vàng ở cổ với dãy ruy băng màu đỏ đậm. Bộ manga ba lần được chuyển thể
+                    thành anime với nhiều người đã lồng tiếng cho nhân vật. Ở phiên bản chuyển thể năm 1973 do Tomita
+                    Kōsei lồng tiếng từ tập 1 đến tập 13 còn từ tập 14 trở đi là Nozawa Masako. Ở phiên bản 1979 đến
+                    tháng 3 năm 2005 là Ōyama Nobuyo. Từ tháng 4 năm 2005 đến nay, Doraemon do Mizuta Wasabi lồng
+                    tiếng.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row footer">
+    <div class="col-12">
+        <span>2021-Design by hoathinh.com.vn</span>
+    </div>
+</div>
+</body>
+</html>

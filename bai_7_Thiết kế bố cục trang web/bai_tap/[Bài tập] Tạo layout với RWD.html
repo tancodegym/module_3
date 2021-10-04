@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Bài tập] Tạo layout với RWD</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 5px;
+        }
+
+        .row::after {
+            clear: both;
+            display: block;
+            content: "";
+        }
+
+        .col-1 {width: 8.33%;}
+        .col-2 {width: 16.66%;}
+        .col-3 {width: 25%;}
+        .col-4 {width: 33.33%;}
+        .col-5 {width: 41.66%;}
+        .col-6 {width: 50%;}
+        .col-7 {width: 58.33%;}
+        .col-8 {width: 66.66%;}
+        .col-9 {width: 75%;}
+        .col-10 {width: 83.33%;}
+        .col-11 {width: 91.66%;}
+        .col-12 {width: 100%;}
+        .header{
+            background-color: gray;
+        }
+        .main{
+            background-color: darkgray;
+        }
+        .right_header{
+            text-align: right;
+        }
+        .left_header{
+            height: 100%;
+
+        }
+        body{
+            font-family: Arial;
+        }
+
+        #menu{
+            padding:0;
+            margin:0;
+
+        }
+
+        #menu ul, #menu li{
+            padding:0;
+            margin:0;
+        }
+
+        #menu li{
+            position: relative;
+            float: left;
+            list-style: none;
+            margin: 0;
+            padding:0;
+        }
+
+        #menu li a{
+            width:100px;
+            height: 30px;
+            display: block;
+            text-decoration:none;
+            text-align: center;
+            line-height: 30px;
+            background-color: gray;
+            color: white;
+        }
+        #menu ul ul li a{
+            width: 200px;
+            text-align: left;
+            padding-left: 10px;
+        }
+        #menu li a:hover{
+            background-color: blue;
+        }
+        #menu ul ul{
+            position: absolute;
+            top: 30px;
+            left: 15px;
+            visibility: hidden;
+        }
+        #menu ul li:hover ul{
+            visibility: visible;
+        }
+        #menu{
+            padding-top: 10px;
+        }
+        p{
+            display: inline-block;
+            border: dotted 1px;
+            border-color: #333333;
+            padding: 25px 50px;
+        }
+        .right_main{
+            text-align: center;
+        }
+        .left_main{
+            height: 100%;
+        }
+        .mid_main{
+            background-color: #CDCDCD;
+        }
+        .footer{
+            background-color: gray;
+            text-align: center;
+            font-size: 30px;
+        }
+        @media only screen and (max-width: 768px) {
+            [class*="col-"]{
+                width: 100%;
+            }
+            .header{
+                background-color: red;
+            }
+
+        }
+    </style>
+</head>
+<body>
+<div class="row header">
+    <div class="col-6 left_header">
+        <div id="menu">
+            <ul>
+                <li><a href="#">Logo</a>
+                    <ul>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Home </a>
+                    <ul>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">About</a>
+                    <ul>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul></li>
+                <li><a href="#">Projects</a>
+                    <ul>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul></li>
+                <li><a href="#">Contact</a>
+                    <ul>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="col-6 right_header">
+        <a href="http://google.com"><img id="img" src="https://i.imgur.com/xhsz7yH.png" alt="none"></a>
+    </div>
+</div>
+<div class="row main">
+    <div  class="col-2 left_main"></div>
+    <div class="col-8 mid_main">
+
+        <h1>WELCOME</h1>
+        <span> Responsive Web Design (RWD) là gì?
+            RWD (Thiết kế Web Thích ứng) là kỹ thuật được sử dụng để trang web có thể hiển thị tốt trên nhiều loại thiết
+            bị với kích thước của trình duyệt khác nhau.
+
+            RWD sử dụng CSS và HTML để thay đổi kích thước, ẩn hoặc thêm các thành phần khác nhau để trang web hiển thị
+            tốt và đáp ứng được các thói quen sử dụng khác nhau trên các thiết bị khác nhau.</span>
+        <hr>
+        <h1>Test</h1>
+        <span> Responsive Web Design (RWD) là gì?
+            RWD (Thiết kế Web Thích ứng) là kỹ thuật được sử dụng để trang web có thể hiển thị tốt trên nhiều loại thiết
+            bị với kích thước của trình duyệt khác nhau.
+
+            RWD sử dụng CSS và HTML để thay đổi kích thước, ẩn hoặc thêm các thành phần khác nhau để trang web hiển thị
+            tốt và đáp ứng được các thói quen sử dụng khác nhau trên các thiết bị khác nhau.</span>
+        <hr>
+        <span> Responsive Web Design (RWD) là gì?
+            RWD (Thiết kế Web Thích ứng) là kỹ thuật được sử dụng để trang web có thể hiển thị tốt trên nhiều loại thiết
+            bị với kích thước của trình duyệt khác nhau.
+
+            RWD sử dụng CSS và HTML để thay đổi kích thước, ẩn hoặc thêm các thành phần khác nhau để trang web hiển thị
+            tốt và đáp ứng được các thói quen sử dụng khác nhau trên các thiết bị khác nhau.</span>
+        <hr>
+        <span> Responsive Web Design (RWD) là gì?
+            RWD (Thiết kế Web Thích ứng) là kỹ thuật được sử dụng để trang web có thể hiển thị tốt trên nhiều loại thiết
+            bị với kích thước của trình duyệt khác nhau.
+
+            RWD sử dụng CSS và HTML để thay đổi kích thước, ẩn hoặc thêm các thành phần khác nhau để trang web hiển thị
+            tốt và đáp ứng được các thói quen sử dụng khác nhau trên các thiết bị khác nhau.</span>
+    </div>
+    <div  class="col-2 right_main">
+        <p>ADS</p>
+        <p>ADS</p>
+    </div>
+</div>
+<div class="row footer">
+    <div class="col-12">
+        Footer Text
+    </div>
+</div>
+
+</body>
+</html>

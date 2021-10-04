@@ -1,0 +1,43 @@
+body{
+    margin: 0;
+}
+#header{
+
+    height: 75px;
+    width: 100%;
+    background-color: black;
+}
+
+#nav{
+    height: 75px;
+    width: 100%;
+    background-color: greenyellow;
+}
+#main{
+    height: 400px;
+    width: 70%;
+    background-color: cornflowerblue;
+    float: left;
+}
+#section{
+    height: 50%;
+    width: 100%;
+    background-color: cyan;
+}
+#article{
+    height: 50%;
+    width: 100%;
+    background-color: yellow;
+}
+#aside{
+    background-color: deeppink;
+    height: 400px ;
+    width: 30%;
+    float: left;
+}
+#footer{
+    background-color: purple;
+    height: 100px;
+    width: 100%;
+    clear:both;
+}
