@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[Bài tập] Tạo gallery đơn giản sử dụng Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="stylesheet" href="../../bootstrap.min.css">
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 pt-3"><h1>Responsive Image Gallery</h1></div>
+    </div>
+    <div class="row">
+        <div class="col-12 pt-3 pb-3">
+            <h3>Resize the browser window to see the effect.</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3  col-sm-6 col-12 text-center border border-primary ">
+            <a href="https://demo.codegym.vn/web/15/gallery/img_fjords.jpg">
+            <img class="img-fluid" src="https://demo.codegym.vn/web/15/gallery/img_fjords.jpg"  alt=""></a>
+            <div class="desc ">Add a description of the image here</div>
+        </div>
+        <div class="col-md-3  col-sm-6 col-12 text-center border border-primary ">
+           <a href="https://demo.codegym.vn/web/15/gallery/img_forest.jpg">
+               <img class="img-fluid" src="https://demo.codegym.vn/web/15/gallery/img_forest.jpg" alt=""></a>
+            <div class="desc">Add a description of the image here</div>
+        </div>
+        <div class="col-md-3  col-sm-6 col-12 text-center border border-primary">
+            <a href="https://demo.codegym.vn/web/15/gallery/img_lights.jpg">
+                <img class="img-fluid" src="https://demo.codegym.vn/web/15/gallery/img_lights.jpg" alt=""></a>
+            <div class="desc">Add a description of the image here</div>
+        </div>
+        <div class="col-md-3  col-sm-6 col-12 text-center border border-primary ">
+            <a href="https://demo.codegym.vn/web/15/gallery/img_mountains.jpg">
+                <img class="img-fluid" src="https://demo.codegym.vn/web/15/gallery/img_mountains.jpg" alt=""></a>
+            <div class="desc">Add a description of the image here</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 pt-4">
+            <p>This example use media queries to re-arrange the images on different screen sizes: for screens larger
+                than 700px
+                wide, it will show four images side by side, for screens smaller than 700px, it will show two images
+                side by side.
+                For screens smaller than 500px, the images will stack vertically (100%).</p>
+        </div>
+    </div>
+</div>
+<script src="../../jquery.js"></script>
+<script src="../../bootstrap.min.js"></script>
+</body>
+</html>
