@@ -54,8 +54,8 @@
             <td><a
                     href="${pageContext.request.contextPath}/product?action=view&id=${product.id}">${product.producer}</a>
             </td>
-            <td><a href="${pageContext.request.contextPath}/product?action=edit&id=${product.id}">edit</a></td>
-            <td><a href="${pageContext.request.contextPath}/product?action=delete&id=${product.id}">delete</a></td>
+            <td><a href="${pageContext.request.contextPath}/product?action=edit&id=${product.id}"><button class="btn btn-primary">Edit</button></a></td>
+            <td><a href="${pageContext.request.contextPath}/product?action=delete&id=${product.id}"><button class="btn btn-danger">Delete</button></a></td>
         </tr>
     </c:forEach>
     </tbody>
