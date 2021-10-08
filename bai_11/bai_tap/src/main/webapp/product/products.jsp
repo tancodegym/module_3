@@ -21,6 +21,9 @@
 <h4>
     <a  href="${pageContext.request.contextPath}/product?action=create">Create new product</a>
 </h4>
+<h4>
+    <a  href="${pageContext.request.contextPath}/product?action=search">Find Product by Name</a>
+</h4>
 <table class="table table-striped table-inverse table-responsive">
     <thead class="thead-inverse">
     <tr>
