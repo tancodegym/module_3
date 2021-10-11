@@ -10,12 +10,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Display Customer List</title>
+    <title>Display model.Customer List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
 </head>
 <body>
-<h1 class="text-center text-primary  ">List Customer</h1>
+<h1 class="text-center text-primary  ">List model.Customer</h1>
 <table class="table table-striped">
 
     <thead>
