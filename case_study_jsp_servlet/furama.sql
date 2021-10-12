@@ -99,7 +99,6 @@ contract_id INT AUTO_INCREMENT PRIMARY KEY,
 contract_start_date DATETIME,
 contract_end_date DATETIME,
 contract_deposit DOUBLE,
-contract_total_money DOUBLE,
 employee_id INT,
 customer_id INT,
 service_id INT,
@@ -115,4 +114,18 @@ quantity INT,
 FOREIGN KEY (contract_id) REFERENCES contract (contract_id)  ON UPDATE CASCADE ON DELETE CASCADE,
 FOREIGN KEY (attach_service_id) REFERENCES attach_service (attach_service_id)  ON UPDATE CASCADE ON DELETE CASCADE
 );
-
+use furama;
+SELECT*FROM customer;
+customer_id INT AUTO_INCREMENT PRIMARY KEY,
+customer_type_id INT ,
+customer_name VARCHAR(45),
+customer_birthday DATE,
+customer_gender INT,
+customer_id_card VARCHAR(45),
+customer_phone VARCHAR(45),
+customer_email VARCHAR(45),
+customer_address VARCHAR(45),
+INSERT INTO customer (customer_id,customer_type_id,customer_name,
+customer_birthday,customer_gender,customer_id_card,customer_phone,
+customer_email,customer_address)
+VALUE { }
