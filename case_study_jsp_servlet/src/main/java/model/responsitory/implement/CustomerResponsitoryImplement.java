@@ -18,7 +18,6 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
             "customer_birthday,customer_gender,customer_id_card,customer_phone," +
             "customer_email,customer_address)\n" +
             "VALUE (?,?,?,?,?,?,?,?,?)";
-
     @Override
     public List<Customer> findAll() {
         Connection connection = DBConnection.getConnection();
@@ -31,7 +30,19 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
                 resultSet = statement.executeQuery();
                 Customer customer = null;
                 while(resultSet.next()){
-                        int id = resultSet.getInt("customer_id");
+                    int id = resultSet.getInt("customer_id");
+                    int type_id = resultSet.getInt("customer_type_id");
+                    String name = resultSet.getString("customer_name");
+                    String birthday = resultSet.getString("customer_birthday");
+                    int  gender = resultSet.getInt("customer_gender");
+                    String idCard = resultSet.getString("customer_id_card");
+                    String phone = resultSet.getString("customer_phone");
+                    String email = resultSet.getString("customer_email");
+                    String address = resultSet.getString("customer_address");
+                    customer = new Customer(id,name,birthday,gender,idCard,phone,email,address,type_id);
+
+
+
 
                 }
             } catch (SQLException throwables) {
