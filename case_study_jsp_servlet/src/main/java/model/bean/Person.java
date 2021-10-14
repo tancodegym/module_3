@@ -4,7 +4,7 @@ public class Person {
     private int id;
     private String name;
     private String birthday;
-    private int genger;
+    private int gender;
     private String idCard;
     private String phone;
     private String email;
@@ -12,13 +12,26 @@ public class Person {
 
     public Person() {
     }
+    public Person(int id) {
+        this.id=id;
+    }
 
-    public Person(int id, String name, String birthday, int genger,
+    public Person(int id, String name, String birthday, int gender,
                   String idCard, String phone, String email, String address) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
-        this.genger = genger;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
+    public Person(String name, String birthday, int gender, String idCard, String phone, String email, String address) {
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
         this.idCard = idCard;
         this.phone = phone;
         this.email = email;
@@ -49,12 +62,12 @@ public class Person {
         this.birthday = birthday;
     }
 
-    public int getGenger() {
-        return genger;
+    public int getGender() {
+        return gender;
     }
 
-    public void setGenger(int genger) {
-        this.genger = genger;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public String getIdCard() {

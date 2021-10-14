@@ -10,4 +10,8 @@ public interface ICustomerResponsitory {
     void save(Customer customer);
     Customer findById(int id);
     void remove(int id);
+
+    Customer getCustomerById(int id);
+
+    void updateCustomer(Customer customer);
 }

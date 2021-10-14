@@ -12,7 +12,7 @@
 <head>
     <title>Furama Resort</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
@@ -22,51 +22,120 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-<div class="container-fluid">
-    <div class="row ">
-        <div class="col-6 bg-secondary">
-            <p>Logo</p>
-        </div>
-        <div class="col-6 bg-success">
-            <p class="align-items-end">Login</p>
-        </div>
-    </div>
+<div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><img style="width: 100px" height="50px" class="img-fluid"
+                                                  src="https://i.imgur.com/t2hf7LR.jpg" alt=""></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/">Home</a>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Employee</a>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ">Customer</a>
+
+                    </li>
+                    <li class="nav-item dropdown">
+
+                        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ">Service</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link ">Contract</a>
+
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button style="height: 40px;" class=" btn btn-outline-success" type="submit">Login</button>
                 </form>
             </div>
         </div>
     </nav>
-    <div class="row " style="height: 540px">
-        <div class="col-3 bg-body">Left Main</div>
-        <div class="col-9 bg-info ">Right Main</div>
-    </div>
-    <div class="row">
-        <div class="col-12 bg-secondary text-center text-light">FOOTER</div>
+</div>
+
+<div class="row bg-secondary">
+    <div class="col-12">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Employee</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/customers?action=customer">Customer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Service</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contract</a>
+            </li>
+            <li class="nav-item">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
     </div>
 </div>
+
+<div class="row ">
+    <div class="col-3 bg-body">
+        <div class="row">
+            <iframe src="https://www.youtube.com/embed/PgvSSl4jm1U"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            <h4>Furama Resort Đà Nẵng</h4>
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/VzDrgGaXBjY"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>FURAMA RESORT DANANG, VIETNAM, 5 SAO BEACH RESORT</h4>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <iframe src="https://www.youtube.com/embed/JbiY06WhjyY"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                <h4>Resort Furama Đà Nẵng 2019</h4>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-9 bg-light ">
+        <div class="row">
+            <div class="col-12 text-center">
+                <img class="img-fluid" src="https://i.imgur.com/iky5E1S.jpg" alt="">
+                <h2 style="font-size: 24px;color: #cbbe73;line-height: 36px;text-align: center;font-family:Playfair Display;font-weight:700;font-style:normal"
+                    class="vc_custom_heading">KHU NGHỈ DƯỠNG ĐẲNG CẤP THẾ GIỚI, FURAMA ĐÀ NẴNG, NỔI TIẾNG LÀ KHU NGHỈ
+                    DƯỠNG ẨM THỰC TẠI VIỆT NAM.</h2>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 bg-secondary text-center text-light">
+        COVID 19 UPDATE: The safety and well-being are our utmost priority
+    </div>
+</div>
+
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
