@@ -64,10 +64,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Employee</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/customers?action=customer">Customer</a>
+                    <a class="nav-link" href="/customers?action=create_customer">Add Customer </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"
@@ -88,14 +85,12 @@
                     <form class="d-flex">
                         <input type="hidden" name="action" value="search">
                         <input type="hidden" name="idSearch" value="" id="idSearch">
-                        <input type="hidden" name="content_search" value="" id="content_search">
+<%--                        <input type="hidden" name="content_search" value="" id="content_search">--%>
                         <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
                         <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">
                     </form>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/customers?action=create_customer">Add Customer </a>
-                </li>
+
             </ul>
         </div>
     </div>
@@ -156,7 +151,7 @@
                                 </a>
                             </td>
                             <td>
-                                <button onclick="onDelete(${customer.id})" type="button" class="btn btn-danger"
+                                <button onclick="onDelete('${customer.id}')" type="button" class="btn btn-danger"
                                         data-toggle="modal" data-target="#modelId">Delete
                                 </button>
                             </td>
@@ -165,7 +160,7 @@
                     </tbody>
                 </table>
             </div>
-
+            <h1 class="text-primary text-center">${messageFind}</h1>
 
             <!-- Modal -->
             <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
@@ -180,7 +175,7 @@
                         </div>
                         <form action="/customers">
                             <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="idCustomer" value="" id="idCustomer">
+                            <input type="hidden" name="idCustomer" id="idCustomer">
                             <div class="modal-body">
                                 <div class="container-fluid">
                                     Are you sure to delete?
@@ -214,8 +209,8 @@
         integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
         crossorigin="anonymous"></script>
 <script>
-    function onDelete(idCustomer) {
-        document.getElementById("idCustomer").value = idCustomer;
+    function onDelete(id) {
+        document.getElementById("idCustomer").value = id;
     }
 
     function onSearch() {
@@ -223,9 +218,7 @@
         let b = document.getElementById("search").value;
         document.getElementById("idSearch").value = a;
         document.getElementById("content_search").value = b;
-
     }
-
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',
@@ -237,7 +230,6 @@
     $('#exampleModal').on('show.bs.modal', event => {
         var button = $(event.relatedTarget);
         var modal = $(this);
-
     });
 </script>
 

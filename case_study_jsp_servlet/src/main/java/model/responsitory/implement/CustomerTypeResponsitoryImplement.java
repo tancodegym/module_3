@@ -26,16 +26,9 @@ public class CustomerTypeResponsitoryImplement implements ICustomerTypeResponsit
                 resultSet = statement.executeQuery();
                 CustomerType customerType = null;
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("customer_id");
-                    int type_id = resultSet.getInt("customer_type_id");
-                    String name = resultSet.getString("customer_name");
-                    String birthday = resultSet.getString("customer_birthday");
-                    int gender = resultSet.getInt("customer_gender");
-                    String idCard = resultSet.getString("customer_id_card");
-                    String phone = resultSet.getString("customer_phone");
-                    String email = resultSet.getString("customer_email");
-                    String address = resultSet.getString("customer_address");
-                    customerType = new CustomerType(id, name, birthday, gender, idCard, phone, email, address, type_id);
+                    int id = resultSet.getInt("customer_type_id");
+                    String name = resultSet.getString("customer_type_name");
+                    customerType = new CustomerType(id, name);
                     customerTypeList.add(customerType);
                 }
             } catch (SQLException throwables) {
@@ -50,6 +43,6 @@ public class CustomerTypeResponsitoryImplement implements ICustomerTypeResponsit
                 DBConnection.close();
             }
         }
-        return customerList;
+        return customerTypeList;
     }
 }

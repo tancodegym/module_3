@@ -19,6 +19,11 @@
 
 </head>
 <body>
+<div class="row">
+    <div class="col-12">
+        <jsp:include page="../common/header.jsp"></jsp:include>
+    </div>
+</div>
 <center>
     <h1 class="text-danger">Create Customer</h1>
 </center>
@@ -35,7 +40,6 @@
 </p>
 <div align="center">
     <form method="post">
-
         <table border="1" cellpadding="5">
             <tr>
                 <th>Customer Name:</th>
@@ -84,11 +88,12 @@
             <tr>
                 <th>Customer Type:</th>
                 <td>
-                    <input type="radio" name="customer_type_id" value="1" size="15"/>Diamond
-                    <input type="radio" name="customer_type_id" value="2" size="15"/>Platinium
-                    <input type="radio" name="customer_type_id" value="3" size="15"/>Gold
-                    <input type="radio" name="customer_type_id" value="4" size="15"/>Silver
-                    <input type="radio" name="customer_type_id" value="5" size="15"/>Member
+                    <select class="form-select" name="customer_type_id" aria-label="Default select example">
+                        <option selected>Choose type of customer</option>
+                        <c:forEach var="type" items="${typeCustomer}">
+                            <option value="${type.customer_type_id}">${type.customer_type_name}</option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>

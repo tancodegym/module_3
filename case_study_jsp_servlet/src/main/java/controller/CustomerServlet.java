@@ -2,7 +2,9 @@ package controller;
 
 import model.bean.Customer;
 import model.service.ICustomerService;
+import model.service.ICustomerTypeService;
 import model.service.implement.CustomerServiceImplement;
+import model.service.implement.CustomerTypeServiceImplement;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "FuramaManageServlet", urlPatterns = {"/customers"})
-public class FuramaManageServlet extends HttpServlet {
+public class CustomerServlet extends HttpServlet {
     ICustomerService iCustomerService = new CustomerServiceImplement();
+    ICustomerTypeService iCustomerTypeService = new CustomerTypeServiceImplement();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -33,9 +37,6 @@ public class FuramaManageServlet extends HttpServlet {
                 case "edit":
                     updateUser(request, response);
                     break;
-//                case "search":
-////                    searchUser(request,response);
-//                    break;
             }
         } catch (Exception ex) {
             throw new ServletException(ex);
@@ -43,7 +44,7 @@ public class FuramaManageServlet extends HttpServlet {
     }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
+        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
         int gender = Integer.parseInt(request.getParameter("gender"));
@@ -71,6 +72,7 @@ public class FuramaManageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
+
         if (action == null) {
             action = "";
         }
@@ -84,18 +86,14 @@ public class FuramaManageServlet extends HttpServlet {
                     addCustomer(request, response);
                     break;
                 case "delete":
+                    String id = request.getParameter("idCustomer");
                     deleteCustomer(request, response);
                     break;
                 case "edit":
                     showEditForm(request,response);
                     break;
                 case "search":
-                    String a = request.getParameter("idSearch");
-                    String b = request.getParameter("content_search");
-
-                    break;
-                case "show_menu_search":
-                    showMenuSearch(request,response);
+                    findCustomer(request,response);
                     break;
                 default:
                     showCustomerList(request, response);
@@ -106,20 +104,23 @@ public class FuramaManageServlet extends HttpServlet {
         }
     }
 
-    private void showMenuSearch(HttpServletRequest request, HttpServletResponse response) {
+    private void findCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int keySearch = Integer.parseInt(request.getParameter("idSearch"));
+        String valueSearch = request.getParameter("search");
+        System.out.println(valueSearch);
+        System.out.println(keySearch);
+        List<Customer> customerList = iCustomerService.findCustomer(keySearch,valueSearch);
+        request.setAttribute("listCustomer", customerList);
+        request.setAttribute("messageFind","Found "+customerList.size()+" customer !");
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
-        request.setAttribute("search", "show_menu");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        dispatcher.forward(request, response);
+
     }
 
+
+
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id_edit"));
+        String id = request.getParameter("id_edit");
         Customer customer= iCustomerService.getCustomerById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/edit.jsp");
         request.setAttribute("customer", customer);
@@ -127,13 +128,14 @@ public class FuramaManageServlet extends HttpServlet {
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        int id = Integer.parseInt(request.getParameter("idCustomer"));
+        String id =request.getParameter("idCustomer");
         iCustomerService.remove(id);
        showCustomerList(request,response);
     }
 
     private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_customer.jsp");
+        request.setAttribute("typeCustomer",iCustomerTypeService.findAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_service.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -149,7 +151,7 @@ public class FuramaManageServlet extends HttpServlet {
         int type = Integer.parseInt(request.getParameter("customer_type_id"));
         Customer customer = new Customer(name, birthday, gender, idCard, phone, email, address, type);
         iCustomerService.save(customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_customer.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_service.jsp");
         request.setAttribute("message", "New customer was created !");
         try {
             dispatcher.forward(request, response);
@@ -166,6 +168,11 @@ public class FuramaManageServlet extends HttpServlet {
         request.setAttribute("listCustomer", customerList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         dispatcher.forward(request, response);
+//        Customer customer = new Customer();
+//        List<String> propertyList = iCustomerService.getPropertyList(customer);
+//        request.setAttribute("propertyList",propertyList);
     }
+
+
 }
 

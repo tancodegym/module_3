@@ -19,6 +19,11 @@
 
 </head>
 <body>
+<div class="row">
+    <div class="col-12">
+        <jsp:include page="../common/header.jsp"></jsp:include>
+    </div>
+</div>
 <center>
     <h1 class="text-primary">Edit Customer</h1>
 </center>

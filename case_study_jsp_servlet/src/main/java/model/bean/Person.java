@@ -1,7 +1,7 @@
 package model.bean;
 
 public class Person {
-    private int id;
+    private String id;
     private String name;
     private String birthday;
     private int gender;
@@ -12,16 +12,26 @@ public class Person {
 
     public Person() {
     }
-    public Person(int id) {
+    public Person(String id) {
         this.id=id;
     }
 
-    public Person(int id, String name, String birthday, int gender,
+    public Person(String id, String name, String birthday, int gender,
                   String idCard, String phone, String email, String address) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
+        this.idCard = idCard;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+    public Person(String id, String name, String birthday,
+                  String idCard, String phone, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
         this.idCard = idCard;
         this.phone = phone;
         this.email = email;
@@ -38,11 +48,11 @@ public class Person {
         this.address = address;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

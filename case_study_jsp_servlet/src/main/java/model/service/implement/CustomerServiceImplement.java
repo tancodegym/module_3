@@ -27,17 +27,27 @@ public class CustomerServiceImplement implements ICustomerService {
     }
 
     @Override
-    public void remove(int id) {
+    public void remove(String id) {
         iCustomerResponsitory.remove(id);
     }
 
     @Override
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(String id) {
         return iCustomerResponsitory.getCustomerById(id);
     }
 
     @Override
     public void updateCustomer(Customer customer) {
         iCustomerResponsitory.updateCustomer(customer);
+    }
+
+    @Override
+    public List<String> getPropertyList(Customer customer) {
+        return iCustomerResponsitory.getPropertyList(customer);
+    }
+
+    @Override
+    public List<Customer> findCustomer(int keySearch, String valueSearch) {
+        return iCustomerResponsitory.findCustomer(keySearch,valueSearch);
     }
 }
