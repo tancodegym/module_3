@@ -38,6 +38,15 @@ public class Person {
         this.address = address;
     }
 
+    public Person(String name, String birthday, String idCard, String phone, String email, String address) {
+        this.name = name;
+        this.birthday = birthday;
+        this.idCard = idCard;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+    }
+
     public Person(String name, String birthday, int gender, String idCard, String phone, String email, String address) {
         this.name = name;
         this.birthday = birthday;

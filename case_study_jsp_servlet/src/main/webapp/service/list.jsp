@@ -23,38 +23,9 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/"><img style="width: 100px" height="50px" class="img-fluid"
-                                                      src="https://i.imgur.com/t2hf7LR.jpg" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-
-                        </li>
-                        <li class="nav-item">
-
-                        </li>
-                        <li class="nav-item dropdown">
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <button style="height: 40px;" class=" btn btn-outline-success" type="submit">Login</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <div class="col-12">
+            <jsp:include page="../common/header.jsp"></jsp:include>
+        </div>
     </div>
 
     <div class="row bg-secondary">
@@ -85,8 +56,8 @@
                     <form class="d-flex">
                         <input type="hidden" name="action" value="search">
                         <input type="hidden" name="idSearch" value="" id="idSearch">
-<%--                        <input type="hidden" name="content_search" value="" id="content_search">--%>
-                        <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search"
+                               aria-label="Search">
                         <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">
                     </form>
                 </li>
@@ -95,102 +66,100 @@
         </div>
     </div>
     <div class="row text-center bg-primary">
-        <div class=col-12><h2>List of Customer</h2></div>
+        <div class=col-12><h2>List of Service</h2></div>
     </div>
     <div class="row">
-        <div class="col-12">
-
-            <div align="center">
-                <table id="tableCustomer" class="table table-striped">
-                    <thead>
+        <div class="col-3">123abc</div>
+        <div class="col-9">
+            <table id="tableCustomer" class="table table-striped" style="display: inline-block; width: 100%; overflow-x: auto">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Area</th>
+                    <th>Cost</th>
+                    <th>Max People</th>
+                    <th>Rent Type</th>
+                    <th>Service Type</th>
+                    <th>Room Standard</th>
+                    <th>Description</th>
+                    <th>Pool Area</th>
+                    <th>Number of Floor</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="service" items="${listService}">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Area</th>
-                        <th>Cost</th>
-                        <th>Max People</th>
-                        <th>Rent Type</th>
-                        <th>Service Type</th>
-                        <th>Room Standard</th>
-                        <th>Description</th>
-                        <th>Pool Area</th>
-                        <th>Number of Floor</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="service" items="${listService}">
-                        <tr>
-                            <td><c:out value="${service.service_id}"/></td>
-                            <td><c:out value="${service.service_name}"/></td>
-                            <td><c:out value="${service.service_area}"/></td>
-                            <td><c:out value="${service.service_cost}"/></td>
-                            <td><c:out value="${service.service_max_people}"/></td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${service.rent_type_id==1}">Year</c:when>
-                                    <c:when test="${service.rent_type_id==2}">Month</c:when>
-                                    <c:when test="${service.rent_type_id==3}">Day</c:when>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${service.service_type_id==1}">Villa</c:when>
-                                    <c:when test="${service.service_type_id==2}">House</c:when>
-                                    <c:when test="${service.service_type_id==3}">Room</c:when>
-                                </c:choose>
-                            </td>
-                            <td><c:out value="${service.standard_room}"/></td>
-                            <td><c:out value="${service.description}"/></td>
-                            <td><c:out value="${service.pool_area}"/></td>
-                            <td><c:out value="${service.number_of_floors}"/></td>
-                            <td>
-                                <a href="/service?action=edit&id_edit=${service.service_id}">
-                                    <button class="btn btn-primary" type="button">Edit
-                                    </button>
-                                </a>
-                            </td>
-                            <td>
-                                <button onclick="onDelete('${service.service_id}')" type="button" class="btn btn-danger"
-                                        data-toggle="modal" data-target="#modelId">Delete
+                        <td><c:out value="${service.service_id}"/></td>
+                        <td><c:out value="${service.service_name}"/></td>
+                        <td><c:out value="${service.service_area}"/></td>
+                        <td><c:out value="${service.service_cost}"/></td>
+                        <td><c:out value="${service.service_max_people}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${service.rent_type_id==1}">Year</c:when>
+                                <c:when test="${service.rent_type_id==2}">Month</c:when>
+                                <c:when test="${service.rent_type_id==3}">Day</c:when>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${service.service_type_id==1}">Villa</c:when>
+                                <c:when test="${service.service_type_id==2}">House</c:when>
+                                <c:when test="${service.service_type_id==3}">Room</c:when>
+                            </c:choose>
+                        </td>
+                        <td><c:out value="${service.standard_room}"/></td>
+                        <td><c:out value="${service.description}"/></td>
+                        <td><c:out value="${service.pool_area}"/></td>
+                        <td><c:out value="${service.number_of_floors}"/></td>
+                        <td>
+                            <a href="/service?action=edit&id_edit=${service.service_id}">
+                                <button class="btn btn-primary" type="button">Edit
                                 </button>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            <h1 class="text-primary text-center">${messageFind}</h1>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Confirm Delete</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </td>
+                        <td>
+                            <button onclick="onDelete('${service.service_id}')" type="button" class="btn btn-danger"
+                                    data-toggle="modal" data-target="#modelId">Delete
                             </button>
-                        </div>
-                        <form action="/customers">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="idCustomer" id="idCustomer">
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    Are you sure to delete?
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </div>
-                        </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <h1 class="text-primary text-center">${messageFind}</h1>
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/customers">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="idCustomer" id="idCustomer">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Are you sure to delete?
                     </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -214,13 +183,13 @@
     function onDelete(id) {
         document.getElementById("idCustomer").value = id;
     }
-
     function onSearch() {
         let a = document.getElementById("select").value;
         let b = document.getElementById("search").value;
         document.getElementById("idSearch").value = a;
         document.getElementById("content_search").value = b;
     }
+
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',

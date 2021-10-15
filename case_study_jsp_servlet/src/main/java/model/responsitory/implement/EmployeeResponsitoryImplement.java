@@ -42,7 +42,7 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
                 while (resultSet.next()) {
                     String id = resultSet.getString("employee_id");
                     String name = resultSet.getString("employee_name");
-                    String birthday = resultSet.getString("customer_birthday");
+                    String birthday = resultSet.getString("employee_birthday");
                     String idCard = resultSet.getString("employee_id_card");
                     double salary = resultSet.getInt("employee_salary");
                     String phone = resultSet.getString("employee_phone");
@@ -136,7 +136,6 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
     public Employee findById(String id) {
         return null;
     }
-
     @Override
     public void remove(String id) {
         Connection connection = DBConnection.getConnection();
@@ -155,9 +154,7 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
                     throwables.printStackTrace();
                 }
                 DBConnection.close();
-
             }
-
         }
     }
 
@@ -174,7 +171,7 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     String name = resultSet.getString("employee_name");
-                    String birthday = resultSet.getString("customer_birthday");
+                    String birthday = resultSet.getString("employee_birthday");
                     String idCard = resultSet.getString("employee_id_card");
                     double salary = resultSet.getInt("employee_salary");
                     String phone = resultSet.getString("employee_phone");
@@ -211,18 +208,18 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(UPDATE_EMPLOYEE);
-                statement.setString(1, employee.getId());
-                statement.setString(2, employee.getName());
-                statement.setString(3, employee.getBirthday());
-                statement.setString(4, employee.getIdCard());
-                statement.setDouble(5,employee.getEmployee_salary());
-                statement.setString(6, employee.getPhone());
-                statement.setString(7, employee.getEmail());
-                statement.setString(8, employee.getAddress());
-                statement.setInt(9,employee.getPosition_id());
-                statement.setInt(10,employee.getEducation_degree_id());
-                statement.setInt(11,employee.getDivision_id());
-                statement.setString(12,employee.getUsername());
+                statement.setString(12, employee.getId());
+                statement.setString(1, employee.getName());
+                statement.setString(2, employee.getBirthday());
+                statement.setString(3, employee.getIdCard());
+                statement.setDouble(4,employee.getEmployee_salary());
+                statement.setString(5, employee.getPhone());
+                statement.setString(6, employee.getEmail());
+                statement.setString(7, employee.getAddress());
+                statement.setInt(8,employee.getPosition_id());
+                statement.setInt(9,employee.getEducation_degree_id());
+                statement.setInt(10,employee.getDivision_id());
+                statement.setString(11,employee.getUsername());
                 statement.executeUpdate();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -253,63 +250,94 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
         ResultSet resultSet = null;
         List<Employee> employeeList = new ArrayList<>();
         String property = "";
-        int customer_type_id=0;
-        int gen=-1;
+        int division_id=0;
+        int position_id=0;
+        int education =0;
         switch (keySearch) {
             case 1:
-                property="customer_id";
-                break;
-            case 9:
-                property ="customer_type_id";
-                switch (valueSearch){
-                    case "Platinium":
-                        customer_type_id= 2;
-                        break;
-                    case "Diamond" :
-                        customer_type_id = 1;
-                        break;
-                    case "Gold":
-                        customer_type_id=3;
-                        break;
-                    case "Silver":
-                        customer_type_id=4;
-                        break;
-                    case "Member":
-                        customer_type_id=5;
-                        break;
-                }
+                property="employee_id";
                 break;
             case 2:
-                property ="customer_name";
+                property ="employee_name";
                 break;
             case 3:
-                property="customer_birthday";
+                property="employee_birthday";
                 break;
+
             case 4:
-                property="customer_gender";
+                property="employee_salary";
+                break;
+            case 5:
+                property="employee_id_card";
+                break;
+            case 6:
+                property = "employee_phone";
+                break;
+            case 7:
+                property="employee_email";
+                break;
+            case 8:
+                property="employee_address";
+                break;
+            case 9:
+                property ="division_id";
                 switch (valueSearch){
-                    case "Male":
-                        gen=1;
+                    case "Sale_Marketing":
+                        division_id= 1;
                         break;
-                    case "Female":
-                        gen = 0;
+                    case "Hành chính" :
+                        division_id = 2;
                         break;
-                    case "Other":
-                        gen = 2;
+                    case "Phục vụ":
+                        division_id=3;
+                        break;
+                    case "Quản lý":
+                        division_id=4;
                         break;
                 }
                 break;
-            case 5:
-                property="customer_id_card";
+            case 10:
+                property ="position_id";
+                switch (valueSearch){
+                    case "Lễ tân":
+                        position_id= 1;
+                        break;
+                    case "Phục vụ" :
+                        position_id = 2;
+                        break;
+                    case "Chuyên viên":
+                        position_id=3;
+                        break;
+                    case "Giám sát":
+                        position_id=4;
+                        break;
+                    case "Quản lý":
+                        position_id=5;
+                        break;
+                    case "Giám đốc":
+                        position_id=6;
+                        break;
+                }
                 break;
-            case 6:
-                property = "customer_phone";
+            case 11:
+                property ="education_degree_id";
+                switch (valueSearch){
+                    case "Trung cấp":
+                        education= 1;
+                        break;
+                    case "Cao Đẳng" :
+                        education = 2;
+                        break;
+                    case "Đại học":
+                        education=3;
+                        break;
+                    case "Sau đại học":
+                        education=4;
+                        break;
+                }
                 break;
-            case 7:
-                property="customer_email";
-                break;
-            case 8:
-                property="customer_address";
+            case 12:
+                property="username";
                 break;
             default:
                 break;
@@ -319,11 +347,14 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
             try {
                 statement = connection.prepareStatement(SEARCH_EMPLOYEE);
                 switch (property){
-                    case "customer_type_id":
-                        statement.setInt(1,customer_type_id);
+                    case "education_degree_id":
+                        statement.setInt(1,education);
                         break;
-                    case "customer_gender":
-                        statement.setInt(1,gen);
+                    case "position_id":
+                        statement.setInt(1,position_id);
+                        break;
+                    case "division_id":
+                        statement.setInt(1,division_id);
                         break;
                     default:
                         statement.setString(1,valueSearch);
@@ -331,19 +362,23 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
                 }
 
                 resultSet = statement.executeQuery();
-                Customer customer = null;
+                Employee employee=null;
                 while (resultSet.next()) {
-                    String id = resultSet.getString("customer_id");
-                    int type_id = resultSet.getInt("customer_type_id");
-                    String name = resultSet.getString("customer_name");
-                    String birthday = resultSet.getString("customer_birthday");
-                    int gender = resultSet.getInt("customer_gender");
-                    String idCard = resultSet.getString("customer_id_card");
-                    String phone = resultSet.getString("customer_phone");
-                    String email = resultSet.getString("customer_email");
-                    String address = resultSet.getString("customer_address");
-                    customer = new Customer(id, name, birthday, gender, idCard, phone, email, address, type_id);
-//                    customerList.add(customer);
+                    String id = resultSet.getString("employee_id");
+                    String name = resultSet.getString("employee_name");
+                    String birthday = resultSet.getString("employee_birthday");
+                    String idCard = resultSet.getString("employee_id_card");
+                    double salary = resultSet.getInt("employee_salary");
+                    String phone = resultSet.getString("employee_phone");
+                    String email = resultSet.getString("employee_email");
+                    String address = resultSet.getString("employee_address");
+                    int position = resultSet.getInt("position_id");
+                    int education_degree_id = resultSet.getInt("education_degree_id");
+                    int division= resultSet.getInt("division_id");
+                    String username = resultSet.getString("username");
+                    employee = new Employee(id, name, birthday, idCard, phone, email, address,
+                            salary, position, education_degree_id, division, username);
+                    employeeList.add(employee);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -356,7 +391,7 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
                 DBConnection.close();
             }
         }
-        return null;
+        return employeeList;
     }
 
 }

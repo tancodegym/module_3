@@ -64,7 +64,7 @@
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Employee</a>
+                <a class="nav-link" href="/employee?action=employee">Employee</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/customers?action=customer">Customer</a>

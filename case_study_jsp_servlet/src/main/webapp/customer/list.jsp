@@ -23,40 +23,10 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/"><img style="width: 100px" height="50px" class="img-fluid"
-                                                      src="https://i.imgur.com/t2hf7LR.jpg" alt=""></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-                        aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarScroll">
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        <li class="nav-item">
-
-                        </li>
-                        <li class="nav-item">
-
-                        </li>
-                        <li class="nav-item dropdown">
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <button style="height: 40px;" class=" btn btn-outline-success" type="submit">Login</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <div class="col-12">
+            <jsp:include page="../common/header.jsp"></jsp:include>
+        </div>
     </div>
-
     <div class="row bg-secondary">
         <div class="col-12">
             <ul class="nav justify-content-center">
@@ -85,12 +55,12 @@
                     <form class="d-flex">
                         <input type="hidden" name="action" value="search">
                         <input type="hidden" name="idSearch" value="" id="idSearch">
-<%--                        <input type="hidden" name="content_search" value="" id="content_search">--%>
-                        <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+                        <%--                        <input type="hidden" name="content_search" value="" id="content_search">--%>
+                        <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search"
+                               aria-label="Search">
                         <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">
                     </form>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -98,100 +68,99 @@
         <div class=col-12><h2>List of Customer</h2></div>
     </div>
     <div class="row">
-        <div class="col-12">
-
-            <div align="center">
-                <table id="tableCustomer" class="table table-striped">
-                    <thead>
+        <div class="col-3"> 123abc</div>
+        <div class="col-9">
+            <table id="tableCustomer" style="display: inline-block; width: 100%; overflow-x: auto"
+                   class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>Gender</th>
+                    <th>ID Card</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Customer Type</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="customer" items="${listCustomer}">
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Birthday</th>
-                        <th>Gender</th>
-                        <th>ID Card</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>Customer Type</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="customer" items="${listCustomer}">
-                        <tr>
-                            <td><c:out value="${customer.id}"/></td>
-                            <td><c:out value="${customer.name}"/></td>
-                            <td><c:out value="${customer.birthday}"/></td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${customer.gender==1}">Male</c:when>
-                                    <c:when test="${customer.gender==0}">Female</c:when>
-                                    <c:otherwise>Other</c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td><c:out value="${customer.idCard}"/></td>
-                            <td><c:out value="${customer.phone}"/></td>
-                            <td><c:out value="${customer.email}"/></td>
-                            <td><c:out value="${customer.address}"/></td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${customer.customer_type_id==1}">Diamond</c:when>
-                                    <c:when test="${customer.customer_type_id==2}">Platinium</c:when>
-                                    <c:when test="${customer.customer_type_id==3}">Gold</c:when>
-                                    <c:when test="${customer.customer_type_id==4}">Silver</c:when>
-                                    <c:otherwise>Member</c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <a href="/customers?action=edit&id_edit=${customer.id}">
-                                    <button class="btn btn-primary" type="button">Edit
-                                    </button>
-                                </a>
-                            </td>
-                            <td>
-                                <button onclick="onDelete('${customer.id}')" type="button" class="btn btn-danger"
-                                        data-toggle="modal" data-target="#modelId">Delete
+                        <td><c:out value="${customer.id}"/></td>
+                        <td><c:out value="${customer.name}"/></td>
+                        <td><c:out value="${customer.birthday}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${customer.gender==1}">Male</c:when>
+                                <c:when test="${customer.gender==0}">Female</c:when>
+                                <c:otherwise>Other</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td><c:out value="${customer.idCard}"/></td>
+                        <td><c:out value="${customer.phone}"/></td>
+                        <td><c:out value="${customer.email}"/></td>
+                        <td><c:out value="${customer.address}"/></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${customer.customer_type_id==1}">Diamond</c:when>
+                                <c:when test="${customer.customer_type_id==2}">Platinium</c:when>
+                                <c:when test="${customer.customer_type_id==3}">Gold</c:when>
+                                <c:when test="${customer.customer_type_id==4}">Silver</c:when>
+                                <c:otherwise>Member</c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <a href="/customers?action=edit&id_edit=${customer.id}">
+                                <button class="btn btn-primary" type="button">Edit
                                 </button>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-            <h1 class="text-primary text-center">${messageFind}</h1>
-
-            <!-- Modal -->
-            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Confirm Delete</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </td>
+                        <td>
+                            <button onclick="onDelete('${customer.id}')" type="button" class="btn btn-danger"
+                                    data-toggle="modal" data-target="#modelId">Delete
                             </button>
-                        </div>
-                        <form action="/customers">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="idCustomer" id="idCustomer">
-                            <div class="modal-body">
-                                <div class="container-fluid">
-                                    Are you sure to delete?
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </div>
-                        </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <h1 class="text-primary text-center">${messageFind}</h1>
+
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/customers">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="idCustomer" id="idCustomer">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Are you sure to delete?
                     </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 <script src="/assert/jquery/jquery-3.5.1.min.js"></script>
 <script src="/assert/bootstrap413/js/popper.min.js"></script>
 <script src="/assert/datatables/js/jquery.dataTables.min.js"></script>
@@ -219,6 +188,7 @@
         document.getElementById("idSearch").value = a;
         document.getElementById("content_search").value = b;
     }
+
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',
