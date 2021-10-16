@@ -6,16 +6,35 @@ public class Contract {
     private String end_date;
     private double contract_deposit;
     private double total_money;
-    private int employee_id;
-    private int customer_id;
-    private int service_id;
+    private String employee_id;
+    private String customer_id;
+    private String service_id;
 
     public Contract() {
     }
 
     public Contract(int contract_id, String start_date, String end_date, double contract_deposit,
-                    double total_money, int employee_id, int customer_id, int service_id) {
+                    double total_money, String employee_id, String customer_id, String service_id) {
         this.contract_id = contract_id;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.contract_deposit = contract_deposit;
+        this.total_money = total_money;
+        this.employee_id = employee_id;
+        this.customer_id = customer_id;
+        this.service_id = service_id;
+    }
+    public Contract(String start_date, String end_date, double contract_deposit,
+                     String employee_id, String customer_id, String service_id) {
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.contract_deposit = contract_deposit;
+        this.employee_id = employee_id;
+        this.customer_id = customer_id;
+        this.service_id = service_id;
+    }
+    public Contract(String start_date, String end_date, double contract_deposit,
+                    double total_money, String employee_id, String customer_id, String service_id) {
         this.start_date = start_date;
         this.end_date = end_date;
         this.contract_deposit = contract_deposit;
@@ -65,27 +84,27 @@ public class Contract {
         this.total_money = total_money;
     }
 
-    public int getEmployee_id() {
+    public String getEmployee_id() {
         return employee_id;
     }
 
-    public void setEmployee_id(int employee_id) {
+    public void setEmployee_id(String employee_id) {
         this.employee_id = employee_id;
     }
 
-    public int getCustomer_id() {
+    public String getCustomer_id() {
         return customer_id;
     }
 
-    public void setCustomer_id(int customer_id) {
+    public void setCustomer_id(String customer_id) {
         this.customer_id = customer_id;
     }
 
-    public int getService_id() {
+    public String getService_id() {
         return service_id;
     }
 
-    public void setService_id(int service_id) {
+    public void setService_id(String service_id) {
         this.service_id = service_id;
     }
 }

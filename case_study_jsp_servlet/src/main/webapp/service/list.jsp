@@ -37,30 +37,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/service?action=create_service">Add Service </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"
-                                                         aria-label=".form-select-lg example">--%>
-                        <option selected>Choose type of search</option>
-                        <option value="1">Id</option>
-                        <option value="2">Name</option>
-                        <option value="3">Date of birth</option>
-                        <option value="4">Gender</option>
-                        <option value="5">ID Card</option>
-                        <option value="6">Number Phone</option>
-                        <option value="7">Email</option>
-                        <option value="8">Address</option>
-                        <option value="9">Type of Customer</option>
-                    </select> </a>
-                </li>
-                <li class="nav-item">
-                    <form class="d-flex">
-                        <input type="hidden" name="action" value="search">
-                        <input type="hidden" name="idSearch" value="" id="idSearch">
-                        <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search"
-                               aria-label="Search">
-                        <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">
-                    </form>
-                </li>
+
 
             </ul>
         </div>
@@ -85,8 +62,6 @@
                     <th>Description</th>
                     <th>Pool Area</th>
                     <th>Number of Floor</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -115,17 +90,17 @@
                         <td><c:out value="${service.description}"/></td>
                         <td><c:out value="${service.pool_area}"/></td>
                         <td><c:out value="${service.number_of_floors}"/></td>
-                        <td>
-                            <a href="/service?action=edit&id_edit=${service.service_id}">
-                                <button class="btn btn-primary" type="button">Edit
-                                </button>
-                            </a>
-                        </td>
-                        <td>
-                            <button onclick="onDelete('${service.service_id}')" type="button" class="btn btn-danger"
-                                    data-toggle="modal" data-target="#modelId">Delete
-                            </button>
-                        </td>
+<%--                        <td>--%>
+<%--                            <a href="/service?action=edit&id_edit=${service.service_id}">--%>
+<%--                                <button class="btn btn-primary" type="button">Edit--%>
+<%--                                </button>--%>
+<%--                            </a>--%>
+<%--                        </td>--%>
+<%--                        <td>--%>
+<%--                            <button onclick="onDelete('${service.service_id}')" type="button" class="btn btn-danger"--%>
+<%--                                    data-toggle="modal" data-target="#modelId">Delete--%>
+<%--                            </button>--%>
+<%--                        </td>--%>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -134,35 +109,35 @@
         <h1 class="text-primary text-center">${messageFind}</h1>
 
     </div>
-</div>
+<%--</div>--%>
 
-<!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Confirm Delete</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="/customers">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="idCustomer" id="idCustomer">
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        Are you sure to delete?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<%--<!-- Modal -->--%>
+<%--<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"--%>
+<%--     aria-hidden="true">--%>
+<%--    <div class="modal-dialog" role="document">--%>
+<%--        <div class="modal-content">--%>
+<%--            <div class="modal-header">--%>
+<%--                <h5 class="modal-title">Confirm Delete</h5>--%>
+<%--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                    <span aria-hidden="true">&times;</span>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--            <form action="/customers">--%>
+<%--                <input type="hidden" name="action" value="delete">--%>
+<%--                <input type="hidden" name="idCustomer" id="idCustomer">--%>
+<%--                <div class="modal-body">--%>
+<%--                    <div class="container-fluid">--%>
+<%--                        Are you sure to delete?--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--                <div class="modal-footer">--%>
+<%--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
+<%--                    <button type="submit" class="btn btn-danger">Delete</button>--%>
+<%--                </div>--%>
+<%--            </form>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <script src="/assert/jquery/jquery-3.5.1.min.js"></script>
 <script src="/assert/bootstrap413/js/popper.min.js"></script>
 <script src="/assert/datatables/js/jquery.dataTables.min.js"></script>
@@ -180,15 +155,15 @@
         integrity="sha384-PsUw7Xwds7x08Ew3exXhqzbhuEYmA2xnwc8BuD6SEr+UmEHlX8/MCltYEodzWA4u"
         crossorigin="anonymous"></script>
 <script>
-    function onDelete(id) {
-        document.getElementById("idCustomer").value = id;
-    }
-    function onSearch() {
-        let a = document.getElementById("select").value;
-        let b = document.getElementById("search").value;
-        document.getElementById("idSearch").value = a;
-        document.getElementById("content_search").value = b;
-    }
+    // function onDelete(id) {
+    //     document.getElementById("idCustomer").value = id;
+    // }
+    // function onSearch() {
+    //     let a = document.getElementById("select").value;
+    //     let b = document.getElementById("search").value;
+    //     document.getElementById("idSearch").value = a;
+    //     document.getElementById("content_search").value = b;
+    // }
 
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
