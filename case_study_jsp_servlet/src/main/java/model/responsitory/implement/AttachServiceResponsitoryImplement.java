@@ -1,7 +1,6 @@
 package model.responsitory.implement;
 
 import model.bean.AttachService;
-import model.bean.Division;
 import model.responsitory.DBConnection;
 import model.responsitory.IAttachServiceResponsitory;
 
@@ -47,5 +46,29 @@ public class AttachServiceResponsitoryImplement implements IAttachServiceRespons
             }
         }
         return attachServiceList;
+    }
+
+    @Override
+    public String findById(int attach_service_id) {
+        String attach_service_name="";
+        switch (attach_service_id){
+            case 1:
+                attach_service_name="Massage";
+                break;
+            case 2:
+                attach_service_name="Karaoke";
+                break;
+            case 3:
+                attach_service_name="Đồ ăn";
+                break;
+                case 4:
+                attach_service_name="Nước uống";
+                break;
+            case 5:
+                attach_service_name="Thuê xe tham quan";
+                break;
+
+        }
+        return attach_service_name;
     }
 }

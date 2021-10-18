@@ -1,9 +1,7 @@
 package model.responsitory.implement;
 
-import model.bean.CustomerType;
 import model.bean.ServiceType;
 import model.responsitory.DBConnection;
-import model.responsitory.IServiceResponsitory;
 import model.responsitory.IServiceTypeResponsitory;
 
 import java.sql.Connection;

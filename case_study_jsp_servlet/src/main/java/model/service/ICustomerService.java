@@ -1,21 +1,23 @@
 package model.service;
 
 import model.bean.Customer;
-import model.bean.Person;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICustomerService {
     List<Customer> findAll();
-    void save(Customer customer);
+    Map<String, String> save(Customer customer);
     Customer findById(int id);
     void remove(String id);
 
     Customer getCustomerById(String id);
 
-    void updateCustomer(Customer customer);
+    Map<String, String> updateCustomer(Customer customer, String customer_id);
 
     List<String> getPropertyList(Customer customer);
 
     List<Customer> findCustomer(int keySearch, String valueSearch);
+
+    void removeAll(String allIdCustomer);
 }

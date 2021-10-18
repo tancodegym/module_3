@@ -1,5 +1,6 @@
 package controller;
 
+import model.service.common.Validate;
 import model.bean.Customer;
 import model.service.ICustomerService;
 import model.service.ICustomerTypeService;
@@ -13,9 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "FuramaManageServlet", urlPatterns = {"/customers"})
 public class CustomerServlet extends HttpServlet {
@@ -42,9 +42,8 @@ public class CustomerServlet extends HttpServlet {
             throw new ServletException(ex);
         }
     }
-
-    private void updateUser(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String customer_id = request.getParameter("id");
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
         int gender = Integer.parseInt(request.getParameter("gender"));
@@ -52,22 +51,26 @@ public class CustomerServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-        int type = Integer.parseInt(request.getParameter("customer_type_id"));
-        Customer customer = new Customer(id,name, birthday, gender, idCard, phone, email, address, type);
-        iCustomerService.updateCustomer(customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/edit.jsp");
-        request.setAttribute("message", "Customer was edited !");
-        try {
+        int customer_type_id = Integer.parseInt(request.getParameter("customer_type_id"));
+        Customer customer = new Customer(name, birthday, gender, idCard, phone, email, address, customer_type_id);
+        Map<String, String> mapMessage = iCustomerService.updateCustomer(customer,customer_id);
+        if (!mapMessage.isEmpty()) {
+            request.setAttribute("mapMessage", mapMessage);
+            request.setAttribute("customer_id",customer_id);
+            request.setAttribute("name", name);
+            request.setAttribute("gender",gender);
+            request.setAttribute("birthday", birthday);
+            request.setAttribute("idCard", idCard);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address",address);
+            request.setAttribute("customer_type_id",customer_type_id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("customer/repair.jsp");
             dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
+        request.setAttribute("message", "Customer was edited !");
+        showCustomerList(request, response);
     }
-
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -76,7 +79,6 @@ public class CustomerServlet extends HttpServlet {
         if (action == null) {
             action = "";
         }
-
         try {
             switch (action) {
                 case "customer":
@@ -89,11 +91,14 @@ public class CustomerServlet extends HttpServlet {
                     String id = request.getParameter("idCustomer");
                     deleteCustomer(request, response);
                     break;
+                case "deleteAll":
+                    deleteAllCustomer(request,response);
+                    break;
                 case "edit":
-                    showEditForm(request,response);
+                    showEditForm(request, response);
                     break;
                 case "search":
-                    findCustomer(request,response);
+                    findCustomer(request, response);
                     break;
                 default:
                     showCustomerList(request, response);
@@ -104,38 +109,44 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
+    private void deleteAllCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String allIdCustomer=request.getParameter("allIdCustomer");
+        iCustomerService.removeAll(allIdCustomer);
+        showCustomerList(request,response);
+
+    }
+
     private void findCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int keySearch = Integer.parseInt(request.getParameter("idSearch"));
         String valueSearch = request.getParameter("search");
         System.out.println(valueSearch);
         System.out.println(keySearch);
-        List<Customer> customerList = iCustomerService.findCustomer(keySearch,valueSearch);
+        List<Customer> customerList = iCustomerService.findCustomer(keySearch, valueSearch);
         request.setAttribute("listCustomer", customerList);
-        request.setAttribute("messageFind","Found "+customerList.size()+" customer !");
+        request.setAttribute("messageFind", "Found " + customerList.size() + " customer !");
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         dispatcher.forward(request, response);
 
     }
 
 
-
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id_edit");
-        Customer customer= iCustomerService.getCustomerById(id);
+        Customer customer = iCustomerService.getCustomerById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/edit.jsp");
         request.setAttribute("customer", customer);
         dispatcher.forward(request, response);
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String id =request.getParameter("idCustomer");
+        String id = request.getParameter("idCustomer");
         iCustomerService.remove(id);
-       showCustomerList(request,response);
+        showCustomerList(request, response);
     }
 
     private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("typeCustomer",iCustomerTypeService.findAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_service.jsp");
+        request.setAttribute("typeCustomer", iCustomerTypeService.findAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_customer.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -148,18 +159,23 @@ public class CustomerServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-        int type = Integer.parseInt(request.getParameter("customer_type_id"));
-        Customer customer = new Customer(name, birthday, gender, idCard, phone, email, address, type);
-        iCustomerService.save(customer);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create_service.jsp");
-        request.setAttribute("message", "New customer was created !");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        int type_id = Integer.parseInt(request.getParameter("customer_type_id"));
+        Customer customer = new Customer(name, birthday, gender, idCard, phone, email, address, type_id);
+        Map<String, String> mapMessage = iCustomerService.save(customer);
+        if (!mapMessage.isEmpty()) {
+            request.setAttribute("mapMessage", mapMessage);
+            request.setAttribute("name", name);
+            request.setAttribute("gender",gender);
+            request.setAttribute("birthday", birthday);
+            request.setAttribute("idCard", idCard);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address",address);
+            request.setAttribute("type_id",type_id);
+            addCustomer(request, response);
         }
+        request.setAttribute("message", "New customer was created !");
+        showCustomerList(request, response);
 
     }
 
@@ -168,9 +184,6 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("listCustomer", customerList);
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/list.jsp");
         dispatcher.forward(request, response);
-//        Customer customer = new Customer();
-//        List<String> propertyList = iCustomerService.getPropertyList(customer);
-//        request.setAttribute("propertyList",propertyList);
     }
 
 

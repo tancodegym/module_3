@@ -34,9 +34,6 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/customers?action=create_customer">Add Customer </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"
                                                          aria-label=".form-select-lg example">--%>
                         <option selected>Choose type of search</option>
@@ -55,7 +52,6 @@
                     <form class="d-flex">
                         <input type="hidden" name="action" value="search">
                         <input type="hidden" name="idSearch" value="" id="idSearch">
-                        <%--                        <input type="hidden" name="content_search" value="" id="content_search">--%>
                         <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search"
                                aria-label="Search">
                         <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">
@@ -68,12 +64,18 @@
         <div class=col-12><h2>List of Customer</h2></div>
     </div>
     <div class="row">
-        <div class="col-3"> 123abc</div>
+        <div class="col-3">
+            <a class="nav-link" href="/customers?action=create_customer"><button class="btn btn-outline-success">Add Customer</button> </a>
+            <button  type="button" class="btn btn-danger"
+                    data-toggle="modal" data-target="#modalDeleteAll">Delete All Selected Customers
+            </button>
+        </div>
         <div class="col-9">
             <table id="tableCustomer" style="display: inline-block; width: 100%; overflow-x: auto"
                    class="table table-striped">
                 <thead>
                 <tr>
+                    <th>Select</th>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Birthday</th>
@@ -90,6 +92,7 @@
                 <tbody>
                 <c:forEach var="customer" items="${listCustomer}">
                     <tr>
+                        <td><input type="checkbox" onclick="addId('${customer.id}')"></td>
                         <td><c:out value="${customer.id}"/></td>
                         <td><c:out value="${customer.name}"/></td>
                         <td><c:out value="${customer.birthday}"/></td>
@@ -114,6 +117,7 @@
                             </c:choose>
                         </td>
                         <td>
+
                             <a href="/customers?action=edit&id_edit=${customer.id}">
                                 <button class="btn btn-primary" type="button">Edit
                                 </button>
@@ -130,10 +134,10 @@
             </table>
         </div>
         <h1 class="text-primary text-center">${messageFind}</h1>
-
     </div>
 </div>
-<!-- Modal -->
+
+<!-- Modal DELETE -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -149,7 +153,7 @@
                 <input type="hidden" name="idCustomer" id="idCustomer">
                 <div class="modal-body">
                     <div class="container-fluid">
-                        Are you sure to delete?
+                        Are you sure to delete ?
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -161,13 +165,39 @@
     </div>
 </div>
 
+<!-- Modal DELETE ALL-->
+<div class="modal fade" id="modalDeleteAll" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/customers">
+                <input type="hidden" name="action" value="deleteAll">
+                <input type="hidden" name="allIdCustomer" value="" id="allIdCustomer">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Are you sure to delete all selected customers?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="/assert/jquery/jquery-3.5.1.min.js"></script>
 <script src="/assert/bootstrap413/js/popper.min.js"></script>
 <script src="/assert/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/assert/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="/assert/bootstrap413/js/bootstrap.min.js"></script>
 <script src="/assert/bootstrap413/js/bootstrap.bundle.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
         crossorigin="anonymous"></script>
@@ -181,22 +211,22 @@
     function onDelete(id) {
         document.getElementById("idCustomer").value = id;
     }
-
+    function  addId(id) {
+        document.getElementById("allIdCustomer").value +=","+id;
+    }
     function onSearch() {
         let a = document.getElementById("select").value;
         let b = document.getElementById("search").value;
         document.getElementById("idSearch").value = a;
         document.getElementById("content_search").value = b;
     }
-
     $(document).ready(function () {
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',
             "lengthChange": false,
-            "pageLength": 5
+            "pageLength": 10
         });
     });
-
     $('#exampleModal').on('show.bs.modal', event => {
         var button = $(event.relatedTarget);
         var modal = $(this);

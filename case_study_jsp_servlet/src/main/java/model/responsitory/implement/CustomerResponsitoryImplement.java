@@ -4,7 +4,6 @@ import model.bean.Customer;
 import model.responsitory.DBConnection;
 import model.responsitory.ICustomerResponsitory;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,8 +26,8 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
             "  customer_gender=?,customer_id_card=?,customer_phone=?,\n" +
             "  customer_email=?,customer_address=?" +
             "  where customer_id = ? ;";
-    private static  String SEARCH_CUSTOMER = "SELECT* FROM customer " +
-            "where" ;
+    private static String SEARCH_CUSTOMER = "SELECT* FROM customer " +
+            "where";
 
     @Override
     public List<Customer> findAll() {
@@ -103,7 +102,6 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
         String idCustomer = getCustomerId(customerList);
         if (connection != null) {
             try {
-
                 statement = connection.prepareStatement(INSERT_NEW_CUSTOMER);
                 statement.setString(1, idCustomer);
                 statement.setInt(2, customer.getCustomer_type_id());
@@ -199,7 +197,7 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
+    public void updateCustomer(Customer customer, String customer_id) {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         if (connection != null) {
@@ -213,7 +211,7 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
                 statement.setString(6, customer.getPhone());
                 statement.setString(7, customer.getEmail());
                 statement.setString(8, customer.getAddress());
-                statement.setString(9, customer.getId());
+                statement.setString(9, customer_id);
                 statement.executeUpdate();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -259,43 +257,43 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
         ResultSet resultSet = null;
         List<Customer> customerList = new ArrayList<>();
         String property = "";
-        int customer_type_id=0;
-        int gen=-1;
+        int customer_type_id = 0;
+        int gen = -1;
         switch (keySearch) {
             case 1:
-                property="customer_id";
+                property = "customer_id";
                 break;
             case 9:
-                property ="customer_type_id";
-                switch (valueSearch){
+                property = "customer_type_id";
+                switch (valueSearch) {
                     case "Platinium":
-                        customer_type_id= 2;
+                        customer_type_id = 2;
                         break;
-                    case "Diamond" :
+                    case "Diamond":
                         customer_type_id = 1;
                         break;
                     case "Gold":
-                        customer_type_id=3;
+                        customer_type_id = 3;
                         break;
                     case "Silver":
-                        customer_type_id=4;
+                        customer_type_id = 4;
                         break;
                     case "Member":
-                        customer_type_id=5;
+                        customer_type_id = 5;
                         break;
                 }
                 break;
             case 2:
-                property ="customer_name";
+                property = "customer_name";
                 break;
             case 3:
-                property="customer_birthday";
+                property = "customer_birthday";
                 break;
             case 4:
-                property="customer_gender";
-                switch (valueSearch){
+                property = "customer_gender";
+                switch (valueSearch) {
                     case "Male":
-                        gen=1;
+                        gen = 1;
                         break;
                     case "Female":
                         gen = 0;
@@ -306,36 +304,35 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
                 }
                 break;
             case 5:
-                property="customer_id_card";
+                property = "customer_id_card";
                 break;
             case 6:
                 property = "customer_phone";
                 break;
             case 7:
-                property="customer_email";
+                property = "customer_email";
                 break;
             case 8:
-                property="customer_address";
+                property = "customer_address";
                 break;
             default:
                 break;
         }
-        SEARCH_CUSTOMER += " "+property + "="+"?" + " ;" ;
+        SEARCH_CUSTOMER += " " + property + "=" + "?" + " ;";
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(SEARCH_CUSTOMER);
-                switch (property){
+                switch (property) {
                     case "customer_type_id":
-                        statement.setInt(1,customer_type_id);
+                        statement.setInt(1, customer_type_id);
                         break;
                     case "customer_gender":
-                        statement.setInt(1,gen);
+                        statement.setInt(1, gen);
                         break;
                     default:
-                        statement.setString(1,valueSearch);
+                        statement.setString(1, valueSearch);
                         break;
                 }
-
                 resultSet = statement.executeQuery();
                 Customer customer = null;
                 while (resultSet.next()) {
@@ -363,5 +360,38 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
             }
         }
         return customerList;
+    }
+    @Override
+    public void removeAll(String allIdCustomer) {
+        List<String> idList = getListId(allIdCustomer);
+        for (String string : idList) {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = null;
+            if (connection != null) {
+                try {
+                    statement = connection.prepareStatement(DELETE_CUSTOMER);
+                    statement.setString(1, string);
+                    statement.executeUpdate();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } finally {
+                    try {
+                        statement.close();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    DBConnection.close();
+                }
+            }
+        }
+    }
+    public static List<String> getListId(String allIdCustomer) {
+        String allId = allIdCustomer.substring(1);
+        String[] arrayId = allId.split(",");
+        List<String> idList = new ArrayList<>();
+        for (String string : arrayId) {
+            idList.add(string);
+        }
+        return idList;
     }
 }

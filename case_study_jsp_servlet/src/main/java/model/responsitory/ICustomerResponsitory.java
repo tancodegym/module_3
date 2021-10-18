@@ -13,9 +13,11 @@ public interface ICustomerResponsitory {
 
     Customer getCustomerById(String id);
 
-    void updateCustomer(Customer customer);
+    void updateCustomer(Customer customer,String customer_id);
 
     List<String> getPropertyList(Customer customer);
 
     List<Customer> findCustomer(int keySearch, String valueSearch);
+
+    void removeAll(String allIdCustomer);
 }

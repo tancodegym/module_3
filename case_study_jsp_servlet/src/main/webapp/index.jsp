@@ -47,6 +47,9 @@
                 <a class="nav-link" href="/contract?action=contract">Contract</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/customer_using?action=customer_using">List Customer Using Service</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/contract_detail?action=contract_detailt">Contract Detail</a>
             </li>
             <li class="nav-item">

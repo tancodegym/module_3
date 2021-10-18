@@ -60,7 +60,7 @@ public class ContractServlet extends HttpServlet {
         String service_id = request.getParameter("service_id");
         Contract contract = new Contract(start_date,end_date,deposit,employee_id,customer_id,service_id);
         iContractService.save(contract);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("contract/create_contract_detail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("contract/create_contract.jsp");
         request.setAttribute("message", "New contract was created !");
         try {
             dispatcher.forward(request, response);

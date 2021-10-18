@@ -1,7 +1,6 @@
 package model.responsitory.implement;
 
 import model.bean.Position;
-import model.bean.RentType;
 import model.responsitory.DBConnection;
 import model.responsitory.IPostionResponsitory;
 

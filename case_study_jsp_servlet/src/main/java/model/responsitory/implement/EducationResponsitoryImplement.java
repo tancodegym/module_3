@@ -1,7 +1,6 @@
 package model.responsitory.implement;
 
 import model.bean.Education_Degree;
-import model.bean.Position;
 import model.responsitory.DBConnection;
 import model.responsitory.IEducationResponsitory;
 

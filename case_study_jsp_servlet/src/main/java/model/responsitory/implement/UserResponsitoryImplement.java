@@ -1,6 +1,5 @@
 package model.responsitory.implement;
 
-import model.bean.RentType;
 import model.bean.User;
 import model.responsitory.DBConnection;
 import model.responsitory.IUserResponsitory;

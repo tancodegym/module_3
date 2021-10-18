@@ -13,4 +13,9 @@ public class AttachServiceImplement implements IAttachService {
     public List<AttachService> getAll() {
         return iAttachServiceResponsitory.getAll();
     }
+
+    @Override
+    public String findById(int attach_service_id) {
+        return iAttachServiceResponsitory.findById(attach_service_id);
+    }
 }

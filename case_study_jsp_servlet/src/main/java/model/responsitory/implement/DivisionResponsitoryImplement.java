@@ -1,7 +1,6 @@
 package model.responsitory.implement;
 
 import model.bean.Division;
-import model.bean.Position;
 import model.responsitory.DBConnection;
 import model.responsitory.IDivisionResponsitory;
 

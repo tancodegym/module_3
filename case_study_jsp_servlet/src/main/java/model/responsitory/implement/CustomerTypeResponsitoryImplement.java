@@ -1,6 +1,5 @@
 package model.responsitory.implement;
 
-import model.bean.Customer;
 import model.bean.CustomerType;
 import model.responsitory.DBConnection;
 import model.responsitory.ICustomerTypeResponsitory;

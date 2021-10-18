@@ -1,6 +1,5 @@
 package model.responsitory.implement;
 
-import model.bean.Customer;
 import model.bean.Service;
 import model.responsitory.DBConnection;
 import model.responsitory.IServiceResponsitory;

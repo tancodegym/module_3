@@ -40,85 +40,98 @@
 </h1>
 <c:if test='${requestScope["message"] == null}'>
     <span class="message  text-success">${requestScope["message"]}</span>
-<div align="center">
-    <form method="post">
-        <table border="1" cellpadding="5">
-            <c:if test="${customer != null}">
-                <input type="hidden" name="id" value="<c:out value='${customer.id}' />"/>
-            </c:if>
-            <tr>
-                <th>Customer Name:</th>
-                <td>
-                    <input type="text" name="name" size="45"
-                           value="${customer.name}"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Birthday:</th>
-                <td>
-                    <input type="date" name="birthday" size="45"
-                           value="<c:out value='${customer.birthday}' />"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Gender:</th>
-                <td>
-                    <input type="radio" name="gender" value="0" size="15"/>Female
-                    <input type="radio" name="gender" value="1" size="15"/>Male
-                    <input type="radio" name="gender" value="2" size="15"/>LGBT
-                </td>
-            </tr>
-            <tr>
-                <th>Customer ID Card:</th>
-                <td>
-                    <input type="text" name="idCard" id="idCard" size="45"
-                           value="<c:out value='${customer.idCard}' />"
-                    />
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Number Phone:</th>
-                <td>
-                    <input type="text" name="phone" id="phone" size="45"
-                           value="<c:out value='${customer.phone}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Email:</th>
-                <td>
-                    <input type="text" name="email" id="email" size="45" value="<c:out value='${customer.email}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Address:</th>
-                <td>
-                    <input type="text" name="address" id="address" size="45"
-                           value="<c:out value='${customer.address}' />"/>
-                </td>
-            </tr>
-            <tr>
-                <th>Customer Type:</th>
-                <td>
-                    <input type="radio" name="customer_type_id" value="1" size="15"/>Diamond
-                    <input type="radio" name="customer_type_id" value="2" size="15"/>Platinium
-                    <input type="radio" name="customer_type_id" value="3" size="15"/>Gold
-                    <input type="radio" name="customer_type_id" value="4" size="15"/>Silver
-                    <input type="radio" name="customer_type_id" value="5" size="15"/>Member
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input class="bg-primary" type="submit" value="Save"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+    <div align="center">
+        <form method="post">
+            <table border="1" cellpadding="5">
+                <c:if test="${customer != null}">
+                    <input type="hidden" name="id" value="<c:out value='${customer.id}' />"/>
+                </c:if>
+                <tr>
+                    <th>Customer Name:</th>
+                    <td>
+                        <input type="text" required name="name"  value="${customer.name}"/>
+                        <c:if test="${mapMessage.get('name') != null}">
+                            <small id="name" class="form-text text-danger">${mapMessage.get('name')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Birthday:</th>
+                    <td>
+                        <input type="date" required name="birthday" value='${customer.birthday}'/>
+                        <c:if test="${mapMessage.get('birthday') != null}">
+                            <small id="birthday" class="form-text text-danger">${mapMessage.get('birthday')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Gender:</th>
+                    <td>
+                        <input type="radio" ${gender == 0 ? 'checked' : ''} name="gender" value="0" size="15"/>Female
+                        <input type="radio" ${gender == 1 ? 'checked' : ''} name="gender" value="1" size="15"/>Male
+                        <input type="radio" ${gender == 2 ? 'checked' : ''}name="gender" value="2" size="15"/>LGBT
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer ID Card:</th>
+                    <td>
+                        <input type="text" name="idCard" required
+                               value="<c:out value='${customer.idCard}' />"/>
+                        <c:if test="${mapMessage.get('idCard') != null}">
+                            <small id="idCard" class="form-text text-danger">${mapMessage.get('idCard')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Number Phone:</th>
+                    <td>
+                        <input type="text" name="phone" required
+                               value="<c:out value='${customer.phone}' />"/>
+                        <c:if test="${mapMessage.get('phone') != null}">
+                            <small id="phone" class="form-text text-danger">${mapMessage.get('phone')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Email:</th>
+                    <td>
+                        <input type="text" name="email" required
+                               value="<c:out value='${customer.email}' />"/>
+                        <c:if test="${mapMessage.get('email') != null}">
+                            <small id="email" class="form-text text-danger">${mapMessage.get('email')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Address:</th>
+                    <td>
+                        <input type="text" name="address" required
+                               value="<c:out value='${customer.address}' />"/>
+                        <c:if test="${mapMessage.get('address') != null}">
+                            <small id="address" class="form-text text-danger">${mapMessage.get('address')}</small>
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Customer Type:</th>
+                    <td>
+                        <input type="radio"  ${type_id == 1 ? 'checked' : ''} name="customer_type_id" value="1" size="15"/>Diamond
+                        <input type="radio" ${type_id == 2 ? 'checked' : ''} name="customer_type_id" value="2" size="15"/>Platinium
+                        <input type="radio" ${type_id == 3 ? 'checked' : ''} name="customer_type_id" value="3" size="15"/>Gold
+                        <input type="radio" ${type_id == 4 ? 'checked' : ''} name="customer_type_id" value="4" size="15"/>Silver
+                        <input type="radio"  ${type_id == 5 ? 'checked' : ''}name="customer_type_id" value="5" size="15"/>Member
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input class="bg-primary" type="submit" value="Save"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
 
 
-
-</div>
+    </div>
 </c:if>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"

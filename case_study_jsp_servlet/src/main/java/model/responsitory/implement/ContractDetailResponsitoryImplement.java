@@ -1,10 +1,8 @@
 package model.responsitory.implement;
 
-import model.bean.Contract;
 import model.bean.ContractDetail;
 import model.responsitory.DBConnection;
 import model.responsitory.IContractDetailResponsitory;
-import model.responsitory.IContractResponsitory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
