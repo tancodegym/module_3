@@ -33,36 +33,44 @@
 <h2>
     <a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a>
 </h2>
-<p class="text-center">
-    <c:if test='${requestScope["message"] != null}'>
-        <span class="message  text-success">${requestScope["message"]}</span>
-    </c:if>
-</p>
+
 <div align="center">
     <form method="post">
         <table border="1" cellpadding="5">
             <tr>
                 <th>Service Name:</th>
                 <td>
-                    <input type="text" name="name" id="name" size="45"/>
+                    <input type="text" required name="name" value="${service_name}"/>
+                    <c:if test="${mapMessage.get('name') != null}">
+                        <small  class="form-text text-danger">${mapMessage.get('name')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
                 <th>Service Area:</th>
                 <td>
-                    <input type="text" name="area" id="area" size="45"/>
+                    <input type="text" name="area" required value="${service_area}"/>
+                    <c:if test="${mapMessage.get('area') != null}">
+                        <small  class="form-text text-danger">${mapMessage.get('area')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
                 <th>Service Cost:</th>
                 <td>
-                    <input type="text" name="cost" id="cost" size="45"/>
+                    <input type="text" name="cost" required value="${service_cost}"/>
+                    <c:if test="${mapMessage.get('cost') != null}">
+                        <small class="form-text text-danger">${mapMessage.get('cost')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
                 <th>Service Max People:</th>
                 <td>
-                    <input type="text" name="max_people" id="max_people" size="45"/>
+                    <input type="text" name="max_people" required value="${service_people}"/>
+                    <c:if test="${mapMessage.get('maxPeople') != null}">
+                        <small class="form-text text-danger">${mapMessage.get('maxPeople')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
@@ -71,7 +79,15 @@
                     <select class="form-select" name="rent_type_id" aria-label="Default select example">
                         <option selected>Choose type of rent</option>
                         <c:forEach var="type" items="${typeRent}">
-                            <option value="${type.rent_type_id}">${type.rent_type_name}</option>
+                            <c:choose>
+                                <c:when test="${type.rent_type_id == rent_type_id}">
+                                    <option value="${type.rent_type_id}" selected>${type.rent_type_name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${type.rent_type_id}">${type.rent_type_name}</option>
+                                </c:otherwise>
+
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </td>
@@ -82,7 +98,15 @@
                     <select class="form-select" name="service_type_id" aria-label="Default select example">
                         <option selected>Choose type of service</option>
                         <c:forEach var="type" items="${typeService}">
-                            <option value="${type.service_type_id}">${type.service_name}</option>
+                            <c:choose>
+                                <c:when test="${type.service_type_id == service_type_id}">
+                                    <option value="${type.service_type_id}" selected>${type.service_name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${type.service_type_id}">${type.service_name}</option>
+                                </c:otherwise>
+
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </td>
@@ -90,25 +114,32 @@
             <tr>
                 <th>Standard Room:</th>
                 <td>
-                    <input type="text" name="standard_room" id="standard_room" size="45"/>
+                    <input type="text" name="standard_room" required value="${standard_room}"/>
                 </td>
             </tr>
             <tr>
                 <th>Decription:</th>
                 <td>
-                    <input type="text" name="description" id="description" size="45"/>
+                    <input type="text" name="description" required value="${description}"/>
                 </td>
             </tr>
             <tr>
                 <th>Pool Area:</th>
                 <td>
-                    <input type="text" name="pool_area" id="pool_area" size="45"/>
+                    <input type="text" name="pool_area" value="${pool_area}"/>
+                    <c:if test="${mapMessage.get('poolArea') != null}">
+                        <small class="form-text text-danger">${mapMessage.get('poolArea')}</small>
+                    </c:if>
+
                 </td>
             </tr>
             <tr>
                 <th>Number of Floors:</th>
                 <td>
-                    <input type="text" name="number_floor" id="number_floor" size="45"/>
+                    <input type="text" name="number_floor" required value="${number_floor}"/>
+                    <c:if test="${mapMessage.get('numberOfFloor') != null}">
+                        <small class="form-text text-danger">${mapMessage.get('numberOfFloor')}</small>
+                    </c:if>
                 </td>
             </tr>
 

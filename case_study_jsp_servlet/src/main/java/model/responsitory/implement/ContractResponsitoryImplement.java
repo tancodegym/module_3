@@ -12,7 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContractResponsitoryImplement implements IContractResponsitory {
-    private static final String SELECT_ALL_CONTRACT = "select * from contract ";
+    private static final String SELECT_ALL_CONTRACT = "SELECT \n" +
+            "    ct.contract_id,\n" +
+            "    ct.contract_start_date,\n" +
+            "    ct.contract_end_date,\n" +
+            "    ct.contract_deposit,\n" +
+            "    ct.employee_id,\n" +
+            "    ct.customer_id,\n" +
+            "    ct.service_id,\n" +
+            "    SUM(sv.service_cost + coalesce(att.attach_service_cost * cd.quantity, 0)) as total\n" +
+            "FROM\n" +
+            "    contract ct\n" +
+            "        JOIN\n" +
+            "    service sv ON sv.service_id = ct.service_id\n" +
+            "        JOIN\n" +
+            "    customer cm ON cm.customer_id = ct.customer_id\n" +
+            "    LEFT JOIN contract_detail cd ON cd.contract_id = ct.contract_id\n" +
+            "    LEFT JOIN attach_service att ON att.attach_service_id = cd.attach_service_id\n" +
+            "    GROUP BY ct.contract_id; ";
     private static final String SELECT_SERVICE_COST = "select service_cost from service where service_id=? ";
     private static final String INSERT_NEW_CONTRACT = "INSERT INTO `furama`.`contract` ( `contract_start_date`, `contract_end_date`, `contract_deposit`, `employee_id`, `customer_id`, `service_id`)" +
             " VALUES  (?, ?, ?, ?, ?, ?);\n";
@@ -36,7 +53,7 @@ public class ContractResponsitoryImplement implements IContractResponsitory {
                     String employee_id = resultSet.getString("employee_id");
                     String customer_id = resultSet.getString("customer_id");
                     String service_id = resultSet.getString("service_id");
-                    double total_money = getTotalMoney(service_id);
+                    double total_money = resultSet.getDouble("total");
                     Contract contract1 = new Contract(id, start_date, end_date, deposit, total_money, employee_id, customer_id, service_id);
                     contractList.add(contract1);
                 }
@@ -55,32 +72,6 @@ public class ContractResponsitoryImplement implements IContractResponsitory {
         return contractList;
     }
 
-    private double getTotalMoney(String service_id) {
-        Connection connection = DBConnection.getConnection();
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        double cost = 0;
-        if (connection != null) {
-            try {
-                statement = connection.prepareStatement(SELECT_SERVICE_COST);
-                statement.setString(1, service_id);
-                resultSet = statement.executeQuery();
-                cost = resultSet.getDouble("service_cost");
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            } finally {
-                try {
-                    resultSet.close();
-                    statement.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                DBConnection.close();
-            }
-
-        }
-        return cost;
-    }
 
     @Override
     public void save(Contract contract) {

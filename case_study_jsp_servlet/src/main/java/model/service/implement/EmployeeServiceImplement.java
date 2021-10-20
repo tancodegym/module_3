@@ -4,8 +4,11 @@ import model.bean.Employee;
 import model.responsitory.IEmployeeResponsitory;
 import model.responsitory.implement.EmployeeResponsitoryImplement;
 import model.service.IEmployeeService;
+import model.service.common.Validate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeServiceImplement implements IEmployeeService {
     private IEmployeeResponsitory iEmployeeResponsitory = new EmployeeResponsitoryImplement();
@@ -15,8 +18,27 @@ public class EmployeeServiceImplement implements IEmployeeService {
     }
 
     @Override
-    public void save(Employee employee) {
-        iEmployeeResponsitory.save(employee);
+    public Map<String,String> save(Employee employee) {
+        Map<String, String> mapMessage = new HashMap<>();
+        if(Validate.validateName(employee.getName())!=null||
+                Validate.validateSalary(employee.getEmployee_salary())!=null||
+                Validate.validateDateOfBirth(employee.getBirthday())!=null||
+                Validate.validateIdCard(employee.getIdCard())!=null||
+                Validate.validateAddress(employee.getAddress())!=null||
+                Validate.validateEmail(employee.getEmail())!=null||
+                Validate.validateNumberPhone(employee.getPhone())!=null){
+            mapMessage.put("birthday",Validate.validateDateOfBirth(employee.getBirthday()));
+            mapMessage.put("name",Validate.validateName(employee.getName()));
+            mapMessage.put("email",Validate.validateEmail(employee.getEmail()));
+            mapMessage.put("idCard",Validate.validateIdCard(employee.getIdCard()));
+            mapMessage.put("phone",Validate.validateNumberPhone(employee.getPhone()));
+            mapMessage.put("address",Validate.validateAddress(employee.getAddress()));
+            mapMessage.put("salary",Validate.validateSalary(employee.getEmployee_salary()));
+        }else{
+            iEmployeeResponsitory.save(employee);
+        }
+        return  mapMessage;
+
     }
 
     @Override
@@ -48,5 +70,10 @@ public class EmployeeServiceImplement implements IEmployeeService {
     @Override
     public List<Employee> findEmployee(int keySearch, String valueSearch) {
         return iEmployeeResponsitory.findEmployee(keySearch,valueSearch);
+    }
+
+    @Override
+    public void removeAll(String allIdEmployee) {
+        iEmployeeResponsitory.removeAll(allIdEmployee);
     }
 }

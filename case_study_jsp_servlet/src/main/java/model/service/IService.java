@@ -4,11 +4,12 @@ import model.bean.Customer;
 import model.bean.Service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IService {
     List<Service> findAll();
 
-    void save(Service service);
+    Map<String, String> save(Service service);
 
     void remove(String id);
 

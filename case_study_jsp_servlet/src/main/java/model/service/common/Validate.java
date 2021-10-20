@@ -131,6 +131,64 @@ public class Validate {
         }
         return message;
     }
+
+    public static String validateArea(int area) {
+        String message = null;
+        if (area > 0) {
+            return message;
+        } else {
+            return message= "Please enter area again, area  must be greater than 0";
+        }
+    }
+    public static String validateCost(double cost) {
+        String message = null;
+        if (cost > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, cost  must be greater than 0";
+        }
+    }
+    public static String validateDeposit(double deposit) {
+        String message = null;
+        if (deposit > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, deposit  must be greater than 0";
+        }
+    }
+    public static String validateMaxPeople(int maxPeople) {
+        String message = null;
+        if (maxPeople > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, number of max people  must be greater than 0";
+        }
+    }
+    public static String validateNumberOfFloors(int number) {
+        String message = null;
+        if (number > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, number of floor must be greater than 0";
+        }
+    }
+    public static String validateSalary(double salary) {
+        String message = null;
+        if (salary > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, salary must be greater than 0";
+        }
+    }
+    public static String validatePoolArea(double poolArea) {
+        String message = null;
+        if (poolArea > 0) {
+            return message;
+        } else {
+            return message= "Please enter again, area of pool must be greater than 0";
+        }
+    }
+
 }
 //    public static boolean validateCustomerId(String customerId) {
 //        final String CUSTOMER_ID_REGEX = "KH-[\\d]{4}";
@@ -172,15 +230,6 @@ public class Validate {
 //        }
 //    }
 
-//    }
-//
-//    public static boolean validatePoolArea(double poolArea) {
-//        if (poolArea > 30) {
-//            return true;
-//        } else {
-//            System.err.println("Please enter area again, area of pool must be greater than 30");
-//            return false;
-//        }
 //    }
 
 

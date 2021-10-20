@@ -27,11 +27,83 @@
             <jsp:include page="../common/header.jsp"></jsp:include>
         </div>
     </div>
+<%--    <div class="row ">--%>
+<%--        <div class="col-12 ">--%>
+<%--            <nav class="navbar navbar-expand-lg navbar-light bg-warning">--%>
+<%--                <a class="navbar-brand" href="#">C0721G1</a>--%>
+<%--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"--%>
+<%--                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">--%>
+<%--                    <span class="navbar-toggler-icon"></span>--%>
+<%--                </button>--%>
+
+<%--                <div class="collapse navbar-collapse" id="navbarSupportedContent">--%>
+<%--                    <ul class="navbar-nav mr-auto">--%>
+<%--                        <li class="nav-item active">--%>
+<%--                            <a class="nav-link" href="/">Home</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link" href="/employee?action=employee">Employee</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link" href="/customers?action=customer">Customer</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link" href="/service?action=service">Service</a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item dropdown">--%>
+<%--                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"--%>
+<%--                               data-toggle="dropdown"--%>
+<%--                               aria-haspopup="true" aria-expanded="false">--%>
+<%--                                Contract--%>
+<%--                            </a>--%>
+<%--                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">--%>
+<%--                                <a class="dropdown-item" href="/contract?action=contract">Contract List</a>--%>
+<%--                                <a class="dropdown-item" href="/contract_detail?action=contract_detailt">Contract Detail--%>
+<%--                                    List</a>--%>
+<%--                                <a class="dropdown-item" href="/customer_using?action=customer_using">List of Customer Using--%>
+<%--                                    Service</a>--%>
+<%--                            </div>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"--%>
+<%--                                                                 aria-label=".form-select-lg example">&ndash;%&gt;--%>
+<%--                                <option selected>Choose type of search</option>--%>
+<%--                                <option value="1">Id</option>--%>
+<%--                                <option value="2">Name</option>--%>
+<%--                                <option value="3">Date of birth</option>--%>
+<%--                                <option value="4">Gender</option>--%>
+<%--                                <option value="5">ID Card</option>--%>
+<%--                                <option value="6">Number Phone</option>--%>
+<%--                                <option value="7">Email</option>--%>
+<%--                                <option value="8">Address</option>--%>
+<%--                                <option value="9">Type of Customer</option>--%>
+<%--                            </select> </a>--%>
+<%--                        </li>--%>
+<%--                        <li class="nav-item">--%>
+<%--                            <form class="d-flex">--%>
+<%--                                <input type="hidden" name="action" value="search">--%>
+<%--                                <input type="hidden" name="idSearch" value="" id="idSearch">--%>
+<%--                                <input class="form-control me-2" name="search" id="search" type="search" placeholder="Search"--%>
+<%--                                       aria-label="Search">--%>
+<%--                                <input onclick="onSearch()" type="submit" class="btn btn-outline-primary" value="Search">--%>
+<%--                            </form>--%>
+<%--                        </li>--%>
+
+<%--                    </ul>--%>
+
+<%--                </div>--%>
+<%--            </nav>--%>
+
+<%--        </div>--%>
+<%--    </div>--%>
     <div class="row bg-secondary">
         <div class="col-12">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/customers?action=customer">List Customer</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"
@@ -60,11 +132,13 @@
             </ul>
         </div>
     </div>
-    <div class="row text-center bg-primary">
-        <div class=col-12><h2>List of Customer</h2></div>
-    </div>
     <div class="row">
         <div class="col-3">
+            <p class="text-center">
+                <c:if test='${requestScope["message"] != null}'>
+                    <span class="message  text-success">${requestScope["message"]}</span>
+                </c:if>
+            </p>
             <a class="nav-link" href="/customers?action=create_customer"><button class="btn btn-outline-success">Add Customer</button> </a>
             <button  type="button" class="btn btn-danger"
                     data-toggle="modal" data-target="#modalDeleteAll">Delete All Selected Customers
@@ -224,7 +298,7 @@
         $('#tableCustomer').dataTable({
             "dom": 'lrtip',
             "lengthChange": false,
-            "pageLength": 10
+            "pageLength": 5
         });
     });
     $('#exampleModal').on('show.bs.modal', event => {

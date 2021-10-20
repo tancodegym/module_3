@@ -112,6 +112,7 @@ public class CustomerServlet extends HttpServlet {
     private void deleteAllCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String allIdCustomer=request.getParameter("allIdCustomer");
         iCustomerService.removeAll(allIdCustomer);
+        request.setAttribute("message","Delete Completed !");
         showCustomerList(request,response);
 
     }
@@ -141,6 +142,7 @@ public class CustomerServlet extends HttpServlet {
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String id = request.getParameter("idCustomer");
         iCustomerService.remove(id);
+        request.setAttribute("message","Delete Completed !");
         showCustomerList(request, response);
     }
 

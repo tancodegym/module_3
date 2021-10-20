@@ -32,21 +32,26 @@
         <div class="col-12">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">List Service</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/service?action=create_service">Add Service </a>
                 </li>
-
-
             </ul>
         </div>
     </div>
-    <div class="row text-center bg-primary">
-        <div class=col-12><h2>List of Service</h2></div>
-    </div>
+<%--    <div class="row text-center bg-primary">--%>
+<%--        <div class=col-12><h2>List of Service</h2></div>--%>
+<%--    </div>--%>
     <div class="row">
-        <div class="col-3">123abc</div>
+        <div class="col-3"><p class="text-center">
+            <c:if test='${requestScope["message"] != null}'>
+                <span class="message  text-success">${requestScope["message"]}</span>
+            </c:if>
+        </p></div>
         <div class="col-9">
             <table id="tableCustomer" class="table table-striped" style="display: inline-block; width: 100%; overflow-x: auto">
                 <thead>

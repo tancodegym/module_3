@@ -20,6 +20,8 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="/assert/bootstrap413/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assert/datatables/css/dataTables.bootstrap4.min.css">
 </head>
 <body>
 <div class="row">
@@ -27,40 +29,89 @@
         <jsp:include page="/common/header.jsp"></jsp:include>
     </div>
 </div>
+<div class="row ">
+    <div class="col-12 ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+            <a class="navbar-brand" href="#">C0721G1</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<div class="row bg-secondary">
-    <div class="col-12">
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/employee?action=employee">Employee</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/customers?action=customer">Customer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/service?action=service">Service</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/contract?action=contract">Contract</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/customer_using?action=customer_using">List Customer Using Service</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/contract_detail?action=contract_detailt">Contract Detail</a>
-            </li>
-            <li class="nav-item">
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/employee?action=employee">Employee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/customers?action=customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/service?action=service">Service</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Contract
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/contract?action=contract">Contract List</a>
+                            <a class="dropdown-item" href="/contract_detail?action=contract_detailt">Contract Detail
+                                List</a>
+                            <%--                            <div class="dropdown-divider"></div>--%>
+                            <a class="dropdown-item" href="/customer_using?action=customer_using">List of Customer Using
+                                Service</a>
+                        </div>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-light my-2 my-sm-0">Search</button>
                 </form>
-            </li>
-        </ul>
+            </div>
+        </nav>
+
     </div>
 </div>
+<%--</div>--%>
+<%--<div class="row bg-secondary">--%>
+<%--    <div class="col-12">--%>
+<%--        <ul class="nav justify-content-center">--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link active" aria-current="page" href="/">Home</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/employee?action=employee">Employee</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/customers?action=customer">Customer</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/service?action=service">Service</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/contract?action=contract">Contract</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/customer_using?action=customer_using">List Customer Using Service</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <a class="nav-link" href="/contract_detail?action=contract_detailt">Contract Detail</a>--%>
+<%--            </li>--%>
+<%--            <li class="nav-item">--%>
+<%--                <form class="d-flex">--%>
+<%--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">--%>
+<%--                    <button class="btn btn-outline-primary" type="submit">Search</button>--%>
+<%--                </form>--%>
+<%--            </li>--%>
+<%--        </ul>--%>
+<%--    </div>--%>
+<%--</div>--%>
 
 <div class="row ">
     <div class="col-3 bg-body">
@@ -99,7 +150,8 @@
             <div class="col-12 text-center">
                 <img class="img-fluid" src="https://i.imgur.com/iky5E1S.jpg" alt="">
                 <h2 style="font-size: 24px;color: #cbbe73;line-height: 36px;text-align: center;font-family:Playfair Display;font-weight:700;font-style:normal"
-                    class="vc_custom_heading">KHU NGHỈ DƯỠNG ĐẲNG CẤP THẾ GIỚI, FURAMA ĐÀ NẴNG, NỔI TIẾNG LÀ KHU NGHỈ
+                    class="vc_custom_heading">KHU NGHỈ DƯỠNG ĐẲNG CẤP THẾ GIỚI, FURAMA ĐÀ NẴNG, NỔI TIẾNG LÀ KHU
+                    NGHỈ
                     DƯỠNG ẨM THỰC TẠI VIỆT NAM.</h2>
 
             </div>
@@ -112,7 +164,12 @@
         COVID 19 UPDATE: The safety and well-being are our utmost priority
     </div>
 </div>
-
+<script src="/assert/jquery/jquery-3.5.1.min.js"></script>
+<script src="/assert/bootstrap413/js/popper.min.js"></script>
+<script src="/assert/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/assert/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="/assert/bootstrap413/js/bootstrap.min.js"></script>
+<script src="/assert/bootstrap413/js/bootstrap.bundle.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

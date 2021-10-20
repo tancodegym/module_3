@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ContractServlet" , urlPatterns = {"/contract"})
 public class ContractServlet extends HttpServlet {
@@ -51,7 +52,7 @@ public class ContractServlet extends HttpServlet {
 
     }
 
-    private void createContract(HttpServletRequest request, HttpServletResponse response) {
+    private void createContract(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String start_date = request.getParameter("start_date");
         String end_date = request.getParameter("end_date");
         double deposit = Double.parseDouble(request.getParameter("deposit"));
@@ -59,16 +60,22 @@ public class ContractServlet extends HttpServlet {
         String customer_id = request.getParameter("customer_id");
         String service_id = request.getParameter("service_id");
         Contract contract = new Contract(start_date,end_date,deposit,employee_id,customer_id,service_id);
-        iContractService.save(contract);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("contract/create_contract.jsp");
-        request.setAttribute("message", "New contract was created !");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        Map<String,String> mapMessage = iContractService.save(contract);
+        if (!mapMessage.isEmpty()) {
+            request.setAttribute("mapMessage", mapMessage);
+            request.setAttribute("start_date", start_date);
+            request.setAttribute("end_date",end_date);
+            request.setAttribute("deposit", deposit);
+            request.setAttribute("employee_id", employee_id);
+            request.setAttribute("customer_id", customer_id);
+            request.setAttribute("service_id", service_id);
+            addContract(request, response);
         }
+
+
+
+        request.setAttribute("message", "New contract was created !");
+        showContractList(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -56,8 +56,8 @@
             <tr>
                 <th>User Name:</th>
                 <td>
-                    <select class="form-select" name="username"  aria-label="Default select example">
-                        <option selected>Choose user name of employee</option>
+                    <select class="form-select" name="username" required  aria-label="Default select example">
+                        <option value="">Choose user name of employee</option>
                         <c:forEach var="type" items="${user}">
                             <option value="${type.username}">${type.username}</option>
                         </c:forEach>
@@ -104,8 +104,8 @@
             <tr>
                 <th>Division:</th>
                 <td>
-                    <select class="form-select" name="division" aria-label="Default select example">
-                        <option selected>Choose division of employee</option>
+                    <select class="form-select" required name="division" aria-label="Default select example">
+                        <option value="">Choose division of employee</option>
                         <c:forEach var="type" items="${division}">
                             <option value="${type.division_id}">${type.division_name}</option>
                         </c:forEach>
@@ -115,8 +115,8 @@
             <tr>
                 <th>Position:</th>
                 <td>
-                    <select class="form-select" name="position" aria-label="Default select example">
-                        <option selected>Choose position of employee</option>
+                    <select class="form-select" required name="position" aria-label="Default select example">
+                        <option value="">Choose position of employee</option>
                         <c:forEach var="type" items="${position}">
                             <option value="${type.position_id}">${type.position_name}</option>
                         </c:forEach>
@@ -126,8 +126,8 @@
             <tr>
                 <th>Education Degree:</th>
                 <td>
-                    <select class="form-select" name="education" aria-label="Default select example">
-                        <option selected>Choose position of employee</option>
+                    <select class="form-select" required name="education" aria-label="Default select example">
+                        <option value="">Choose position of employee</option>
                         <c:forEach var="type" items="${education}">
                             <option value="${type.education_id}">${type.education_name}</option>
                         </c:forEach>

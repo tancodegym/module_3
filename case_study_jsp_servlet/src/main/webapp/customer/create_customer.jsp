@@ -108,7 +108,7 @@
                 <th>Customer Type:</th>
                 <td>
                     <select class="form-select" required name="customer_type_id" aria-label="Default select example">
-                        <option selected>Choose type of customer</option>
+                        <option value="">Choose type of customer</option>
                         <c:forEach var="type" items="${typeCustomer}">
                             <c:choose>
                                 <c:when test="${type.customer_type_id == type_id}">

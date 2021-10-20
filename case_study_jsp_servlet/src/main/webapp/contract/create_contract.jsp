@@ -33,30 +33,35 @@
 <h2>
     <a href="/"><i class="fas fa-arrow-left"></i> Back to Home</a>
 </h2>
-<p class="text-center">
-    <c:if test='${requestScope["message"] != null}'>
-        <span class="message  text-success">${requestScope["message"]}</span>
-    </c:if>
-</p>
+
 <div align="center">
     <form method="post">
         <table border="1" cellpadding="5">
             <tr>
                 <th>Start Date:</th>
                 <td>
-                    <input type="date" name="start_date" id="start_date" size="45"/>
+                    <input type="date" name="start_date" value="${start_date}"/>
+                    <c:if test="${mapMessage.get('startDate') != null}">
+                        <small  class="form-text text-danger">${mapMessage.get('startDate')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
                 <th>End Date:</th>
                 <td>
-                    <input type="date" name="end_date" id="end_date" size="45"/>
+                    <input type="date" name="end_date" value="${end_date}"/>
+                    <c:if test="${mapMessage.get('endDate') != null}">
+                        <small  class="form-text text-danger">${mapMessage.get('endDate')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
                 <th>Contract Deposit:</th>
                 <td>
-                    <input type="text" name="deposit" id="deposit" size="45"/>
+                    <input type="text" name="deposit" value="${deposit}"/>
+                    <c:if test="${mapMessage.get('deposit') != null}">
+                        <small  class="form-text text-danger">${mapMessage.get('deposit')}</small>
+                    </c:if>
                 </td>
             </tr>
             <tr>
@@ -65,7 +70,15 @@
                     <select class="form-select" name="employee_id" aria-label="Default select example">
                         <option selected>Choose Employee</option>
                         <c:forEach var="type" items="${employeeList}">
-                            <option value="${type.id}">${type.name}</option>
+                            <c:choose>
+                                <c:when test="${type.id == employee_id}">
+                                    <option value="${type.id}" selected>${type.name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${type.id}">${type.name}</option>
+                                </c:otherwise>
+
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </td>
@@ -76,7 +89,14 @@
                     <select class="form-select" name="customer_id" aria-label="Default select example">
                         <option selected>Choose Customer</option>
                         <c:forEach var="type" items="${customerList}">
-                            <option value="${type.id}">${type.name}</option>
+                                <c:choose>
+                                    <c:when test="${type.id == customer_id}">
+                                        <option value="${type.id}" selected>${type.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${type.id}">${type.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
                         </c:forEach>
                     </select>
                 </td>
@@ -87,7 +107,14 @@
                     <select class="form-select" name="service_id" aria-label="Default select example">
                         <option selected>Choose Service</option>
                         <c:forEach var="type" items="${serviceList}">
-                            <option value="${type.service_id}">${type.service_name}</option>
+                            <c:choose>
+                                <c:when test="${type.service_id == service_id}">
+                                    <option value="${type.service_id}" selected>${type.service_name}</option>
+                                </c:when>
+                                <c:otherwise>
+                                    <option value="${type.service_id}">${type.service_name}</option>
+                                </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                     </select>
                 </td>
@@ -97,8 +124,6 @@
                     <input class="bg-success" type="submit" name="action" value="Create"/>
                 </td>
             </tr>
-
-
         </table>
 
     </form>

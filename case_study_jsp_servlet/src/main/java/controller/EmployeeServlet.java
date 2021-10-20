@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "EmployeeServlet", urlPatterns = {"/employee"})
 public class EmployeeServlet extends HttpServlet {
@@ -42,7 +43,7 @@ public class EmployeeServlet extends HttpServlet {
         }
     }
 
-    private void updateEmployee(HttpServletRequest request, HttpServletResponse response) {
+    private void updateEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
@@ -58,18 +59,11 @@ public class EmployeeServlet extends HttpServlet {
 
         Employee employee = new Employee(id,name,birthday,idCard,phone,email,address,salary,position,education,division,username);
         iEmployeeService.updateEmployee(employee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/edit.jsp");
         request.setAttribute("message", "Employee was edited !");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        showEmployeeList(request,response);
     }
 
-    private void createEmployee(HttpServletRequest request, HttpServletResponse response) {
+    private void createEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
         String birthday = request.getParameter("birthday");
         String idCard = request.getParameter("idCard");
@@ -78,20 +72,32 @@ public class EmployeeServlet extends HttpServlet {
         String address = request.getParameter("address");
         String username= request.getParameter("username");
         double salary = Double.parseDouble(request.getParameter("salary"));
-        int education = Integer.parseInt(request.getParameter("education"));
-        int division = Integer.parseInt(request.getParameter("division"));
-        int position = Integer.parseInt(request.getParameter("position"));
-        Employee employee = new Employee(name,birthday,idCard,phone,email,address,salary,position,education,division,username);
-        iEmployeeService.save(employee);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("employee/create_employee.jsp");
-        request.setAttribute("message", "New Employee was created !");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        int education_id = Integer.parseInt(request.getParameter("education"));
+        int division_id = Integer.parseInt(request.getParameter("division"));
+        int position_id = Integer.parseInt(request.getParameter("position"));
+        Employee employee = new Employee(name,birthday,idCard,phone,email,address,salary,position_id,education_id,division_id,username);
+        Map<String,String> mapMessage = iEmployeeService.save(employee);
+        if (!mapMessage.isEmpty()) {
+            request.setAttribute("division",iDivisionService.findAll());
+            request.setAttribute("position",iPositionService.findAll());
+            request.setAttribute("education",iEducationService.findAll());
+            request.setAttribute("user",iUserService.findAll());
+            request.setAttribute("mapMessage", mapMessage);
+            request.setAttribute("name", name);
+            request.setAttribute("username", username);
+            request.setAttribute("birthday", birthday);
+            request.setAttribute("idCard", idCard);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address",address);
+            request.setAttribute("salary",salary);
+            request.setAttribute("education_id",education_id);
+            request.setAttribute("division_id",division_id);
+            request.setAttribute("position_id",position_id);
+            addEmployee(request, response);
         }
+        request.setAttribute("message", "New Employee was created !");
+        showEmployeeList(request,response);
 
     }
 
@@ -106,6 +112,9 @@ public class EmployeeServlet extends HttpServlet {
 
         try {
             switch (action) {
+                case "deleteAll":
+                    deleteAllCustomer(request,response);
+                    break;
                 case "employee":
                     showEmployeeList(request, response);
                     break;
@@ -128,6 +137,13 @@ public class EmployeeServlet extends HttpServlet {
         } catch (Exception ex) {
             throw new ServletException(ex);
         }
+    }
+
+    private void deleteAllCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String allIdCustomer=request.getParameter("allIdCustomer");
+        iEmployeeService.removeAll(allIdCustomer);
+        request.setAttribute("message","Delete Completed!");
+        showEmployeeList(request,response);
     }
 
     private void findEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -157,6 +173,7 @@ public class EmployeeServlet extends HttpServlet {
     private void deleteEmployee(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id =request.getParameter("idEmployee");
         iEmployeeService.remove(id);
+        request.setAttribute("message","Delete Completed!");
         showEmployeeList(request,response);
     }
 

@@ -393,4 +393,39 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
         return employeeList;
     }
 
+    @Override
+    public void removeAll(String allIdEmployee) {
+        List<String> idList = getListId(allIdEmployee);
+        for(String string: idList){
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement statement = null;
+            if (connection != null) {
+                try {
+                    statement = connection.prepareStatement(DELETE_EMPLOYEE);
+                    statement.setString(1, string);
+                    statement.executeUpdate();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } finally {
+                    try {
+                        statement.close();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    DBConnection.close();
+                }
+            }
+        }
+
+    }
+    public static List<String> getListId(String allIdEmployee) {
+        String allId = allIdEmployee.substring(1);
+        String[] arrayId = allId.split(",");
+        List<String> idList = new ArrayList<>();
+        for (String string : arrayId) {
+            idList.add(string);
+        }
+        return idList;
+    }
+
 }

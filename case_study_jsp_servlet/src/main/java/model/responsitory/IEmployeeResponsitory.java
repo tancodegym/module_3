@@ -20,5 +20,7 @@ public interface IEmployeeResponsitory {
     List<String> getPropertyList(Employee employee);
 
     List<Employee> findEmployee(int keySearch, String valueSearch);
+
+    void removeAll(String allIdEmployee);
 }
 

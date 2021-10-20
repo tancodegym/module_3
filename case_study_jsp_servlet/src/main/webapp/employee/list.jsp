@@ -34,10 +34,7 @@
                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/employee?action=employee">Employee List</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/employee?action=create_employee">Add Employee </a>
+                    <a class="nav-link active" aria-current="page" href="/employee?action=employee">List of Employee</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><select id="select" class="form-select form-select-sm mb-3"
@@ -70,16 +67,22 @@
             </ul>
         </div>
     </div>
-    <div class="row text-center bg-primary">
-        <div class=col-12><h2>List of Employee</h2></div>
-    </div>
     <div class="row">
-        <div class="col-3"> 123</div>
+        <div class="col-3"><p class="text-center">
+            <c:if test='${requestScope["message"] != null}'>
+                <span class="message  text-success">${requestScope["message"]}</span>
+            </c:if>
+        </p>  <a class="nav-link" href="/employee?action=create_employee"><button class="btn btn-outline-success">Add Employee</button> </a>
+            <button  type="button" class="btn btn-danger"
+                     data-toggle="modal" data-target="#modalDeleteAll">Delete All Selected Employees
+            </button>
+        </div>
         <div class="col-9">
             <table id="tableCustomer" class="table table-striped"
                    style="display: inline-block; width: 100%; overflow-x: auto">
                 <thead>
                 <tr>
+                    <th>Select</th>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Birthday</th>
@@ -99,6 +102,7 @@
                 <tbody>
                 <c:forEach var="employee" items="${listEmployee}">
                     <tr>
+                        <td><input type="checkbox" onclick="addId('${employee.id}')"></td>
                         <td><c:out value="${employee.id}"/></td>
                         <td><c:out value="${employee.name}"/></td>
                         <td><c:out value="${employee.birthday}"/></td>
@@ -182,6 +186,33 @@
     </div>
 </div>
 
+<!-- Modal DELETE ALL-->
+<div class="modal fade" id="modalDeleteAll" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/customers">
+                <input type="hidden" name="action" value="deleteAll">
+                <input type="hidden" name="allIdEmployee" value="" id="allIdEmployee">
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        Are you sure to delete all selected employees?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script src="/assert/jquery/jquery-3.5.1.min.js"></script>
 <script src="/assert/bootstrap413/js/popper.min.js"></script>
 <script src="/assert/datatables/js/jquery.dataTables.min.js"></script>
@@ -201,6 +232,9 @@
 <script>
     function onDelete(id) {
         document.getElementById("idEmployee").value = id;
+    }
+    function  addId(id) {
+        document.getElementById("allIdEmployee").value +=","+id;
     }
 
     function onSearch() {

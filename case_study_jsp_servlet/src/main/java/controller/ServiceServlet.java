@@ -3,6 +3,7 @@ package controller;
 import model.bean.Customer;
 import model.bean.Service;
 import model.service.*;
+import model.service.common.Validate;
 import model.service.implement.*;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "ServiceServlet", urlPatterns = {"/service"})
 public class ServiceServlet extends HttpServlet {
@@ -40,29 +42,66 @@ public class ServiceServlet extends HttpServlet {
         }
     }
 
-    private void createService(HttpServletRequest request, HttpServletResponse response) {
+    private void createService(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String service_name = request.getParameter("name");
-        int service_area= Integer.parseInt(request.getParameter("area"));
-        double service_cost = Double.parseDouble(request.getParameter("cost"));
-        int service_people = Integer.parseInt(request.getParameter("max_people"));
+        int service_area=0;
+        boolean checkArea=true;
+        if (Validate.validateNumber(request.getParameter("area")) != null) {
+            checkArea = false;
+        }else {
+            service_area= Integer.parseInt(request.getParameter("area"));
+        }
+        double service_cost =0;
+        boolean checkCost=true;
+        if (Validate.validateNumber(request.getParameter("cost")) != null) {
+            checkArea = false;
+        }else {
+            service_cost = Double.parseDouble(request.getParameter("cost"));
+        }
+        int service_people =0;
+        boolean checkNumberMaxPeople=true;
+        if (Validate.validateNumber(request.getParameter("max_people")) != null) {
+            checkArea = false;
+        }else {
+            service_people = Integer.parseInt(request.getParameter("max_people"));
+        }
         int rent_type_id  =  Integer.parseInt(request.getParameter("rent_type_id"));
         int service_type_id  =  Integer.parseInt(request.getParameter("service_type_id"));
         String standard_room = request.getParameter("standard_room");
         String description = request.getParameter("description");
-        double pool_area = Double.parseDouble(request.getParameter("pool_area"));
-        int number_floor = Integer.parseInt(request.getParameter("number_floor"));
+        double pool_area =0;
+        boolean checkPoolArea=true;
+        if (Validate.validateNumber(request.getParameter("pool_area")) != null) {
+            checkPoolArea = false;
+        }else {
+            pool_area = Double.parseDouble(request.getParameter("pool_area"));
+        }
+        int number_floor =0;
+        boolean checkNumberFloor=true;
+        if (Validate.validateNumber(request.getParameter("number_floor")) != null) {
+            checkPoolArea = false;
+        }else {
+             number_floor = Integer.parseInt(request.getParameter("number_floor"));
+        }
         Service service = new Service(service_name,service_area,service_cost,
                 service_people,rent_type_id,service_type_id,standard_room,description,pool_area,number_floor);
-        iService.save(service);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("service/create_service.jsp");
-        request.setAttribute("message", "New service was created !");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+       Map<String,String> messageMap =  iService.save(service);
+        if (!messageMap.isEmpty()) {
+            request.setAttribute("mapMessage", messageMap);
+            request.setAttribute("service_name", service_name);
+            request.setAttribute("service_area",service_area);
+            request.setAttribute("service_cost", service_cost);
+            request.setAttribute("service_people", service_people);
+            request.setAttribute("rent_type_id", rent_type_id);
+            request.setAttribute("service_type_id", service_type_id);
+            request.setAttribute("standard_room",standard_room);
+            request.setAttribute("description",description);
+            request.setAttribute("pool_area",pool_area);
+            request.setAttribute("number_floor",number_floor);
+            addService(request, response);
         }
+        request.setAttribute("message", "New service was created !");
+       showServiceList(request,response);
     }
 
     private void updateService(HttpServletRequest request, HttpServletResponse response) {
