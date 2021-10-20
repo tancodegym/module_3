@@ -4,10 +4,7 @@ import model.bean.Customer;
 import model.responsitory.DBConnection;
 import model.responsitory.ICustomerResponsitory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -161,11 +158,13 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
     public Customer getCustomerById(String id) {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
+//        CallableStatement callableStatement = null;
         ResultSet resultSet = null;
         Customer customer = null;
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(SELECT_CUSTOMER);
+//                callableStatement = connection.prepareCall(SELECT_CUSTOMER);
                 statement.setString(1, id);
                 resultSet = statement.executeQuery();
                 while (resultSet.next()) {
@@ -372,6 +371,7 @@ public class CustomerResponsitoryImplement implements ICustomerResponsitory {
                     statement = connection.prepareStatement(DELETE_CUSTOMER);
                     statement.setString(1, string);
                     statement.executeUpdate();
+
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } finally {

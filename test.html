@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="checkbox" class="a" name="ips" value="12520">
+<input type="checkbox" class="a" name="ips" value="12521">
+<input type="checkbox" class="a" name="ips" value="12522">
+<script>
+    $(document).ready(function() {
+        var ckbox = $("input[name='ips']");
+        var chkId = '';
+        $('input').on('click', function() {
+
+            if (ckbox.is(':checked')) {
+                $("input[name='ips']:checked").each ( function() {
+                    chkId = $(this).val() + ",";
+                    chkId = chkId.slice(0, -1);
+                });
+
+                alert ( $(this).val() ); // return all values of checkboxes checked
+                alert(chkId); // return value of checkbox checked
+            }
+        });
+    });
+    alert($(".a").is(":checked").val());
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</body>
+</html>

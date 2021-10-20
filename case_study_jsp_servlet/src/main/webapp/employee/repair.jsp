@@ -141,7 +141,6 @@
                                     <c:otherwise>
                                         <option value="${type.division_id}">${type.division_name}</option>
                                     </c:otherwise>
-
                                 </c:choose>
                             </c:forEach>
                         </select>
@@ -190,14 +189,8 @@
                         <input class="bg-success" type="submit" name="action" value="Edit"/>
                     </td>
                 </tr>
-
-
             </table>
-
         </form>
-
-
-
     </div>
 </c:if>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
