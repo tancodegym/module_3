@@ -15,7 +15,7 @@ public interface IEmployeeResponsitory {
 
     Employee getEmployeeById(String id);
 
-    void updateEmployee(Employee employee);
+    void updateEmployee(Employee employee,String employeeId);
 
     List<String> getPropertyList(Employee employee);
 

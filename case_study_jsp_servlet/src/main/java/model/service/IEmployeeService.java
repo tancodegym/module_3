@@ -13,7 +13,7 @@ public interface IEmployeeService {
 
     Employee getEmployeeById(String id);
 
-    void updateEmployee(Employee employee);
+    Map<String,String> updateEmployee(Employee employee,String employeeId);
 
     List<String> getPropertyList(Employee employee);
 

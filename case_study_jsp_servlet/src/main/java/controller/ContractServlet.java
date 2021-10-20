@@ -6,6 +6,7 @@ import model.service.IContractService;
 import model.service.ICustomerService;
 import model.service.IEmployeeService;
 import model.service.IService;
+import model.service.common.Validate;
 import model.service.implement.ContractServiceImplement;
 import model.service.implement.CustomerServiceImplement;
 import model.service.implement.EmployeeServiceImplement;
@@ -55,13 +56,18 @@ public class ContractServlet extends HttpServlet {
     private void createContract(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String start_date = request.getParameter("start_date");
         String end_date = request.getParameter("end_date");
-        double deposit = Double.parseDouble(request.getParameter("deposit"));
+        double deposit =0.0d;
+        boolean checkDeposit =true;
+        if(Validate.validateNumber(request.getParameter("deposit"))!=null){
+            checkDeposit=false;
+        }else{
+         deposit = Double.parseDouble(request.getParameter("deposit"));}
         String employee_id = request.getParameter("employee_id");
         String customer_id = request.getParameter("customer_id");
         String service_id = request.getParameter("service_id");
         Contract contract = new Contract(start_date,end_date,deposit,employee_id,customer_id,service_id);
         Map<String,String> mapMessage = iContractService.save(contract);
-        if (!mapMessage.isEmpty()) {
+        if (!mapMessage.isEmpty()||checkDeposit) {
             request.setAttribute("mapMessage", mapMessage);
             request.setAttribute("start_date", start_date);
             request.setAttribute("end_date",end_date);

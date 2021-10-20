@@ -201,13 +201,13 @@ public class EmployeeResponsitoryImplement implements IEmployeeResponsitory {
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
+    public void updateEmployee(Employee employee,String employeeId) {
         Connection connection = DBConnection.getConnection();
         PreparedStatement statement = null;
         if (connection != null) {
             try {
                 statement = connection.prepareStatement(UPDATE_EMPLOYEE);
-                statement.setString(12, employee.getId());
+                statement.setString(12, employeeId);
                 statement.setString(1, employee.getName());
                 statement.setString(2, employee.getBirthday());
                 statement.setString(3, employee.getIdCard());

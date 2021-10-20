@@ -136,7 +136,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <input class="bg-success" type="submit" name="action" value="Create"/>
+                    <input class="bg-success" type="submit" name="action" value="Edit"/>
                 </td>
             </tr>
 

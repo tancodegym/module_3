@@ -57,8 +57,27 @@ public class EmployeeServiceImplement implements IEmployeeService {
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        iEmployeeResponsitory.updateEmployee(employee);
+    public Map<String,String> updateEmployee(Employee employee,String employeeId) {
+        Map<String, String> mapMessage = new HashMap<>();
+        if(Validate.validateName(employee.getName())!=null||
+                Validate.validateSalary(employee.getEmployee_salary())!=null||
+                Validate.validateDateOfBirth(employee.getBirthday())!=null||
+                Validate.validateIdCard(employee.getIdCard())!=null||
+                Validate.validateAddress(employee.getAddress())!=null||
+                Validate.validateEmail(employee.getEmail())!=null||
+                Validate.validateNumberPhone(employee.getPhone())!=null){
+            mapMessage.put("birthday",Validate.validateDateOfBirth(employee.getBirthday()));
+            mapMessage.put("name",Validate.validateName(employee.getName()));
+            mapMessage.put("email",Validate.validateEmail(employee.getEmail()));
+            mapMessage.put("idCard",Validate.validateIdCard(employee.getIdCard()));
+            mapMessage.put("phone",Validate.validateNumberPhone(employee.getPhone()));
+            mapMessage.put("address",Validate.validateAddress(employee.getAddress()));
+            mapMessage.put("salary",Validate.validateSalary(employee.getEmployee_salary()));
+        }else{
+            iEmployeeResponsitory.updateEmployee(employee,employeeId);
+        }
+        return  mapMessage;
+
     }
 
     @Override
